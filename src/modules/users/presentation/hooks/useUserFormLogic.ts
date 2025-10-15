@@ -4,14 +4,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, type UseFormReturn } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import type { CreateUserDto, UpdateUserDto } from '../../domain/entities/User'
+import { useCreateUser, useUpdateUser, useUser } from './useUserOperations'
 import {
   type UserFormData,
   userSchema,
   type UserUpdateFormData,
   userUpdateSchema,
 } from '../../domain/schemas/userSchema'
-import { useCreateUser, useUpdateUser, useUser } from './useUserOperations'
+
+import type { CreateUserDto, UpdateUserDto } from '../../domain/entities/User'
 
 interface UseUserFormLogicReturn {
   form: UseFormReturn<UserFormData | UserUpdateFormData>
