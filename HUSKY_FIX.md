@@ -126,8 +126,16 @@ Cuando intentas hacer push:
    pnpm type-check
    ```
 
-2. Si pasa, el push continúa ✅
-3. Si falla, el push se cancela ❌
+2. **Build**: Compila el proyecto para asegurar que no hay errores de build
+
+   ```bash
+   pnpm build
+   ```
+
+3. Si todo pasa, el push continúa ✅
+4. Si algo falla, el push se cancela ❌
+
+**⏱️ Tiempo estimado**: 30-60 segundos
 
 ## 🧪 Cómo Probar que Funciona
 
@@ -211,19 +219,30 @@ Esto significa que:
 
 El build completo (`pnpm build`) puede ser **muy lento** (30-60 segundos), lo que hace el commit muy pesado.
 
-**Mejor práctica:**
+**Mejor práctica actual:**
 
 - ✅ **Pre-commit**: Linting + Formatting + Type-check (rápido: 5-10s)
-- ✅ **Pre-push**: Type-check adicional
-- ✅ **CI/CD**: Build completo en el servidor
+- ✅ **Pre-push**: Type-check + Build completo (30-60s)
+- ✅ **CI/CD**: Build completo + Tests en el servidor
 
-Si quieres incluir el build, puedes agregarlo al `pre-push`:
+**Configuración actual del pre-push:**
 
 ```bash
 # .husky/pre-push
+echo "🔍 Running type-check..."
 pnpm type-check
+
+echo "🏗️  Building project..."
 pnpm build
+
+echo "✅ All pre-push checks passed!"
 ```
+
+Esto asegura que:
+
+- Los **commits son rápidos** (solo lint y type-check)
+- Los **pushes son seguros** (build completo antes de subir código)
+- No subes código que no compila al repositorio remoto
 
 ## 🔄 Si Husky Sigue Sin Funcionar
 

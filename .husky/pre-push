@@ -1,2 +1,9 @@
 # Run type-check before pushing
+echo "🔍 Running type-check..."
 pnpm type-check
+
+# Run build to ensure no build errors
+echo "🏗️  Building project..."
+pnpm build
+
+echo "✅ All pre-push checks passed!"
