@@ -5,6 +5,7 @@ export interface User {
   email: string
   phone: string
   website: string
+  accountId: number // ID de la cuenta propietaria
   address: {
     street: string
     suite: string
@@ -24,6 +25,7 @@ export interface CreateUserDto {
   email: string
   phone: string
   website: string
+  accountId: number
 }
 
 export interface UpdateUserDto extends CreateUserDto {

@@ -1,25 +1,31 @@
 import { z } from 'zod'
 
 export const postSchema = z.object({
+  accountId: z
+    .number({
+      message: 'La cuenta es requerida',
+    })
+    .int('El ID de cuenta debe ser un número entero')
+    .positive('Debes seleccionar una cuenta'),
   userId: z
     .number({
-      message: 'User ID is required',
+      message: 'El ID de usuario es requerido',
     })
-    .int('User ID must be an integer')
-    .positive('User ID must be positive'),
+    .int('El ID de usuario debe ser un número entero')
+    .positive('El ID de usuario debe ser positivo'),
   title: z
     .string({
-      message: 'Title is required',
+      message: 'El título es requerido',
     })
-    .min(3, 'Title must be at least 3 characters')
-    .max(100, 'Title must not exceed 100 characters')
+    .min(3, 'El título debe tener al menos 3 caracteres')
+    .max(100, 'El título no debe exceder 100 caracteres')
     .trim(),
   body: z
     .string({
-      message: 'Body is required',
+      message: 'El contenido es requerido',
     })
-    .min(10, 'Body must be at least 10 characters')
-    .max(1000, 'Body must not exceed 1000 characters')
+    .min(10, 'El contenido debe tener al menos 10 caracteres')
+    .max(1000, 'El contenido no debe exceder 1000 caracteres')
     .trim(),
 })
 

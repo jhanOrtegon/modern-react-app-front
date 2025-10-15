@@ -22,7 +22,7 @@ export const UserAdapter = {
    * Convierte una respuesta del API a una entidad User del dominio
    * Aplica valores por defecto para evitar errores
    */
-  toDomain(apiResponse: UserAPIResponse): User {
+  toDomain(apiResponse: UserAPIResponse, accountId = 1): User {
     return {
       id: apiResponse.id ?? 0,
       name: apiResponse.name ?? 'Unknown User',
@@ -30,6 +30,7 @@ export const UserAdapter = {
       email: apiResponse.email ?? 'no-email@example.com',
       phone: apiResponse.phone ?? 'N/A',
       website: apiResponse.website ?? 'N/A',
+      accountId, // Asociar al account
       address: {
         street: apiResponse.address?.street ?? 'N/A',
         suite: apiResponse.address?.suite ?? 'N/A',
@@ -47,12 +48,12 @@ export const UserAdapter = {
   /**
    * Convierte un array de respuestas del API a entidades del dominio
    */
-  toDomainList(apiResponses: UserAPIResponse[]): User[] {
+  toDomainList(apiResponses: UserAPIResponse[], accountId = 1): User[] {
     if (!Array.isArray(apiResponses)) {
       return []
     }
 
-    return apiResponses.map(item => this.toDomain(item))
+    return apiResponses.map(item => this.toDomain(item, accountId))
   },
 
   /**

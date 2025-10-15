@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
 import { useForm, type UseFormReturn } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import type { CreatePostDto, UpdatePostDto } from '../../domain/entities/Post'
 import {
   type PostFormData,
   postSchema,
@@ -34,6 +35,7 @@ export function usePostFormLogic(postId?: number): UsePostFormLogicReturn {
   const form = useForm<PostFormData | PostUpdateFormData>({
     resolver: zodResolver(isEditing ? postUpdateSchema : postSchema),
     defaultValues: {
+      accountId: undefined,
       userId: 1,
       title: '',
       body: '',
@@ -45,6 +47,7 @@ export function usePostFormLogic(postId?: number): UsePostFormLogicReturn {
   useEffect(() => {
     if (existingPost && isEditing) {
       form.reset({
+        accountId: existingPost.accountId,
         userId: existingPost.userId,
         title: existingPost.title,
         body: existingPost.body,
@@ -56,7 +59,8 @@ export function usePostFormLogic(postId?: number): UsePostFormLogicReturn {
   // Handle form submission
   const onSubmit = (data: PostFormData | PostUpdateFormData): void => {
     if (isEditing && postId && 'id' in data) {
-      updatePost.mutate(data, {
+      // El accountId se agrega automáticamente en useUpdatePost
+      updatePost.mutate(data as UpdatePostDto, {
         onSuccess: () => {
           navigate(`/posts/${postId}`)
         },
@@ -67,7 +71,8 @@ export function usePostFormLogic(postId?: number): UsePostFormLogicReturn {
         },
       })
     } else {
-      createPost.mutate(data as PostFormData, {
+      // El accountId se agrega automáticamente en useCreatePost
+      createPost.mutate(data as CreatePostDto, {
         onSuccess: newPost => {
           navigate(`/posts/${newPost.id}`)
         },

@@ -6,4 +6,5 @@ export interface IPostRepository {
   create: (post: CreatePostDto) => Promise<Post>
   update: (post: UpdatePostDto) => Promise<Post>
   delete: (id: number) => Promise<void>
+  clearAll?: (accountId: number) => Promise<void>
 }

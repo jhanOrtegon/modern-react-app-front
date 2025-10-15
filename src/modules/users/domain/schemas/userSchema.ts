@@ -1,42 +1,48 @@
 import { z } from 'zod'
 
 export const userSchema = z.object({
+  accountId: z
+    .number({
+      message: 'La cuenta es requerida',
+    })
+    .int('El ID de cuenta debe ser un número entero')
+    .positive('Debes seleccionar una cuenta'),
   name: z
     .string({
-      message: 'Name is required',
+      message: 'El nombre es requerido',
     })
-    .min(2, 'Name must be at least 2 characters')
-    .max(50, 'Name must not exceed 50 characters')
+    .min(2, 'El nombre debe tener al menos 2 caracteres')
+    .max(50, 'El nombre no debe exceder 50 caracteres')
     .trim(),
   username: z
     .string({
-      message: 'Username is required',
+      message: 'El nombre de usuario es requerido',
     })
-    .min(3, 'Username must be at least 3 characters')
-    .max(20, 'Username must not exceed 20 characters')
+    .min(3, 'El nombre de usuario debe tener al menos 3 caracteres')
+    .max(20, 'El nombre de usuario no debe exceder 20 caracteres')
     .regex(
       /^[a-zA-Z0-9_-]+$/,
-      'Username can only contain letters, numbers, underscores, and hyphens'
+      'El nombre de usuario solo puede contener letras, números, guiones bajos y guiones'
     )
     .trim(),
   email: z
     .string({
-      message: 'Email is required',
+      message: 'El email es requerido',
     })
     // eslint-disable-next-line @typescript-eslint/no-deprecated
-    .email('Please enter a valid email address')
+    .email('Por favor ingresa un email válido')
     .trim()
     .toLowerCase(),
   phone: z
     .string({
-      message: 'Phone is required',
+      message: 'El teléfono es requerido',
     })
-    .min(7, 'Phone must be at least 7 characters')
-    .max(20, 'Phone must not exceed 20 characters')
+    .min(7, 'El teléfono debe tener al menos 7 caracteres')
+    .max(20, 'El teléfono no debe exceder 20 caracteres')
     .trim(),
   website: z
     .string({
-      message: 'Website is required',
+      message: 'El sitio web es requerido',
     })
     .trim()
     .refine(
@@ -48,7 +54,7 @@ export const userSchema = z.object({
           return /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(val)
         }
       },
-      { message: 'Please enter a valid website URL' }
+      { message: 'Por favor ingresa una URL válida' }
     ),
 })
 

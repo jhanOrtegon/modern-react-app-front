@@ -21,25 +21,27 @@ export const PostAdapter = {
   /**
    * Convierte una respuesta del API a una entidad Post del dominio
    * Aplica valores por defecto para evitar errores
+   * Nota: JSONPlaceholder no tiene accountId, lo agregamos con valor por defecto
    */
-  toDomain(apiResponse: PostAPIResponse): Post {
+  toDomain(apiResponse: PostAPIResponse, accountId = 1): Post {
     return {
       id: apiResponse.id ?? 0,
       userId: apiResponse.userId ?? 1,
       title: apiResponse.title ?? 'Untitled Post',
       body: apiResponse.body ?? '',
+      accountId, // Agregamos accountId (por defecto 1 para datos del API)
     }
   },
 
   /**
    * Convierte un array de respuestas del API a entidades del dominio
    */
-  toDomainList(apiResponses: PostAPIResponse[]): Post[] {
+  toDomainList(apiResponses: PostAPIResponse[], accountId = 1): Post[] {
     if (!Array.isArray(apiResponses)) {
       return []
     }
 
-    return apiResponses.map(item => this.toDomain(item))
+    return apiResponses.map(item => this.toDomain(item, accountId))
   },
 
   /**

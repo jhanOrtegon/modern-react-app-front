@@ -1,3 +1,4 @@
+import { ClearAllUsersUseCase } from '../application/use-cases/ClearAllUsersUseCase'
 import { CreateUserUseCase } from '../application/use-cases/CreateUserUseCase'
 import { DeleteUserUseCase } from '../application/use-cases/DeleteUserUseCase'
 import { GetUserUseCase } from '../application/use-cases/GetUserUseCase'
@@ -18,6 +19,7 @@ class UsersContainer {
   private createUserUseCase: CreateUserUseCase | null = null
   private updateUserUseCase: UpdateUserUseCase | null = null
   private deleteUserUseCase: DeleteUserUseCase | null = null
+  private clearAllUsersUseCase: ClearAllUsersUseCase | null = null
   private repositoryType: UserRepositoryType = 'jsonplaceholder' // Por defecto JSONPlaceholder
 
   /**
@@ -34,6 +36,7 @@ class UsersContainer {
       this.createUserUseCase = null
       this.updateUserUseCase = null
       this.deleteUserUseCase = null
+      this.clearAllUsersUseCase = null
     }
   }
 
@@ -85,6 +88,13 @@ class UsersContainer {
   getDeleteUserUseCase(): DeleteUserUseCase {
     this.deleteUserUseCase ??= new DeleteUserUseCase(this.getUserRepository())
     return this.deleteUserUseCase
+  }
+
+  getClearAllUsersUseCase(): ClearAllUsersUseCase {
+    this.clearAllUsersUseCase ??= new ClearAllUsersUseCase(
+      this.getUserRepository()
+    )
+    return this.clearAllUsersUseCase
   }
 }
 

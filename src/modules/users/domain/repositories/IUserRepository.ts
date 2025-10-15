@@ -6,4 +6,5 @@ export interface IUserRepository {
   create: (user: CreateUserDto) => Promise<User>
   update: (user: UpdateUserDto) => Promise<User>
   delete: (id: number) => Promise<void>
+  clearAll?: (accountId: number) => Promise<void>
 }

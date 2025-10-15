@@ -3,12 +3,14 @@ export interface Post {
   title: string
   body: string
   userId: number
+  accountId: number // ID de la cuenta propietaria
 }
 
 export interface CreatePostDto {
   title: string
   body: string
   userId: number
+  accountId: number
 }
 
 export interface UpdatePostDto {
@@ -16,4 +18,5 @@ export interface UpdatePostDto {
   title: string
   body: string
   userId: number
+  accountId: number
 }

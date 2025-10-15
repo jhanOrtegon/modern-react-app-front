@@ -5,6 +5,7 @@ import { FormLayout } from '../../../../components/layout/FormLayout'
 import { LoadingSpinner } from '../../../../components/shared/LoadingSpinner'
 import { Alert, AlertDescription } from '../../../../components/ui/alert'
 import { Label } from '../../../../components/ui/label'
+import { useAccounts } from '../../../accounts/presentation/hooks/useAccountOperations'
 import { useUserFormLogic } from '../hooks/useUserFormLogic'
 
 export function UserForm(): ReactElement {
@@ -13,6 +14,9 @@ export function UserForm(): ReactElement {
 
   const { form, onSubmit, isPending, isLoadingUser, isEditing, backLink } =
     useUserFormLogic(userId)
+
+  // Cargar cuentas disponibles
+  const { data: accounts, isLoading: isLoadingAccounts } = useAccounts()
 
   if (isLoadingUser && isEditing) {
     return <LoadingSpinner text="Loading user..." />
@@ -43,12 +47,40 @@ export function UserForm(): ReactElement {
       ) : null}
 
       <div className="space-y-2">
+        <Label htmlFor="accountId">
+          Cuenta <span className="text-destructive">*</span>
+        </Label>
+        <select
+          {...form.register('accountId', { valueAsNumber: true })}
+          className={`w-full rounded-md border bg-background px-3 py-2 ${form.formState.errors.accountId ? 'border-destructive focus:ring-destructive' : ''}`}
+          disabled={isLoadingAccounts}
+          id="accountId"
+        >
+          <option value="">
+            {isLoadingAccounts
+              ? 'Cargando cuentas...'
+              : 'Selecciona una cuenta'}
+          </option>
+          {accounts?.map(account => (
+            <option key={account.id} value={account.id}>
+              {account.name} ({account.email})
+            </option>
+          ))}
+        </select>
+        {form.formState.errors.accountId ? (
+          <p className="text-xs text-destructive">
+            {form.formState.errors.accountId.message}
+          </p>
+        ) : null}
+      </div>
+
+      <div className="space-y-2">
         <Label htmlFor="name">
           Name <span className="text-destructive">*</span>
         </Label>
         <input
           {...form.register('name')}
-          className="w-full rounded-md border bg-background px-3 py-2"
+          className={`w-full rounded-md border bg-background px-3 py-2 ${form.formState.errors.name ? 'border-destructive focus:ring-destructive' : ''}`}
           id="name"
           placeholder="Enter full name..."
           type="text"
@@ -66,7 +98,7 @@ export function UserForm(): ReactElement {
         </Label>
         <input
           {...form.register('username')}
-          className="w-full rounded-md border bg-background px-3 py-2"
+          className={`w-full rounded-md border bg-background px-3 py-2 ${form.formState.errors.username ? 'border-destructive focus:ring-destructive' : ''}`}
           id="username"
           placeholder="Enter username..."
           type="text"
@@ -84,7 +116,7 @@ export function UserForm(): ReactElement {
         </Label>
         <input
           {...form.register('email')}
-          className="w-full rounded-md border bg-background px-3 py-2"
+          className={`w-full rounded-md border bg-background px-3 py-2 ${form.formState.errors.email ? 'border-destructive focus:ring-destructive' : ''}`}
           id="email"
           placeholder="Enter email..."
           type="email"
@@ -102,7 +134,7 @@ export function UserForm(): ReactElement {
         </Label>
         <input
           {...form.register('phone')}
-          className="w-full rounded-md border bg-background px-3 py-2"
+          className={`w-full rounded-md border bg-background px-3 py-2 ${form.formState.errors.phone ? 'border-destructive focus:ring-destructive' : ''}`}
           id="phone"
           placeholder="Enter phone..."
           type="tel"
@@ -120,7 +152,7 @@ export function UserForm(): ReactElement {
         </Label>
         <input
           {...form.register('website')}
-          className="w-full rounded-md border bg-background px-3 py-2"
+          className={`w-full rounded-md border bg-background px-3 py-2 ${form.formState.errors.website ? 'border-destructive focus:ring-destructive' : ''}`}
           id="website"
           placeholder="Enter website..."
           type="text"

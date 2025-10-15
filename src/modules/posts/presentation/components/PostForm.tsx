@@ -5,6 +5,7 @@ import { FormLayout } from '../../../../components/layout/FormLayout'
 import { LoadingSpinner } from '../../../../components/shared/LoadingSpinner'
 import { Alert, AlertDescription } from '../../../../components/ui/alert'
 import { Label } from '../../../../components/ui/label'
+import { useAccounts } from '../../../accounts/presentation/hooks/useAccountOperations'
 import { usePostFormLogic } from '../hooks/usePostFormLogic'
 
 export function PostForm(): ReactElement {
@@ -13,6 +14,9 @@ export function PostForm(): ReactElement {
 
   const { form, onSubmit, isPending, isLoadingPost, isEditing, backLink } =
     usePostFormLogic(postId)
+
+  // Cargar cuentas disponibles
+  const { data: accounts, isLoading: isLoadingAccounts } = useAccounts()
 
   if (isLoadingPost && isEditing) {
     return <LoadingSpinner text="Loading post..." />
@@ -43,12 +47,40 @@ export function PostForm(): ReactElement {
       ) : null}
 
       <div className="space-y-2">
+        <Label htmlFor="accountId">
+          Cuenta <span className="text-destructive">*</span>
+        </Label>
+        <select
+          {...form.register('accountId', { valueAsNumber: true })}
+          className={`w-full rounded-md border bg-background px-3 py-2 ${form.formState.errors.accountId ? 'border-destructive focus:ring-destructive' : ''}`}
+          disabled={isLoadingAccounts}
+          id="accountId"
+        >
+          <option value="">
+            {isLoadingAccounts
+              ? 'Cargando cuentas...'
+              : 'Selecciona una cuenta'}
+          </option>
+          {accounts?.map(account => (
+            <option key={account.id} value={account.id}>
+              {account.name} ({account.email})
+            </option>
+          ))}
+        </select>
+        {form.formState.errors.accountId ? (
+          <p className="text-xs text-destructive">
+            {form.formState.errors.accountId.message}
+          </p>
+        ) : null}
+      </div>
+
+      <div className="space-y-2">
         <Label htmlFor="userId">
           User ID <span className="text-destructive">*</span>
         </Label>
         <input
           {...form.register('userId', { valueAsNumber: true })}
-          className="w-full rounded-md border bg-background px-3 py-2"
+          className={`w-full rounded-md border bg-background px-3 py-2 ${form.formState.errors.userId ? 'border-destructive focus:ring-destructive' : ''}`}
           id="userId"
           min={1}
           type="number"
@@ -66,7 +98,7 @@ export function PostForm(): ReactElement {
         </Label>
         <input
           {...form.register('title')}
-          className="w-full rounded-md border bg-background px-3 py-2"
+          className={`w-full rounded-md border bg-background px-3 py-2 ${form.formState.errors.title ? 'border-destructive focus:ring-destructive' : ''}`}
           id="title"
           placeholder="Enter post title..."
           type="text"
@@ -84,7 +116,7 @@ export function PostForm(): ReactElement {
         </Label>
         <textarea
           {...form.register('body')}
-          className="w-full rounded-md border bg-background px-3 py-2"
+          className={`w-full rounded-md border bg-background px-3 py-2 ${form.formState.errors.body ? 'border-destructive focus:ring-destructive' : ''}`}
           id="body"
           placeholder="Enter post content..."
           rows={10}

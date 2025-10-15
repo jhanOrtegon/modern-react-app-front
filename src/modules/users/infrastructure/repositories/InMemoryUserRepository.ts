@@ -14,6 +14,7 @@ export class InMemoryUserRepository implements IUserRepository {
       email: 'alice.johnson@example.com',
       phone: '555-0101',
       website: 'alicejohnson.dev',
+      accountId: 1,
       address: {
         street: '123 Main St',
         suite: 'Apt. 4B',
@@ -33,6 +34,7 @@ export class InMemoryUserRepository implements IUserRepository {
       email: 'bob.smith@example.com',
       phone: '555-0102',
       website: 'bobsmith.io',
+      accountId: 1,
       address: {
         street: '456 Oak Ave',
         suite: 'Suite 200',
@@ -52,6 +54,7 @@ export class InMemoryUserRepository implements IUserRepository {
       email: 'carol.williams@example.com',
       phone: '555-0103',
       website: 'carolwilliams.com',
+      accountId: 1,
       address: {
         street: '789 Pine Rd',
         suite: 'Floor 3',
@@ -71,6 +74,7 @@ export class InMemoryUserRepository implements IUserRepository {
       email: 'david.brown@example.com',
       phone: '555-0104',
       website: 'davidbrown.net',
+      accountId: 1,
       address: {
         street: '321 Elm St',
         suite: 'Unit 12',
@@ -90,6 +94,7 @@ export class InMemoryUserRepository implements IUserRepository {
       email: 'emma.davis@example.com',
       phone: '555-0105',
       website: 'emmadavis.co',
+      accountId: 1,
       address: {
         street: '654 Maple Dr',
         suite: 'Office 5A',
@@ -126,6 +131,7 @@ export class InMemoryUserRepository implements IUserRepository {
     const newUser: User = {
       id: this.nextId++,
       ...userDto,
+      accountId: userDto.accountId,
       address: {
         street: 'N/A',
         suite: 'N/A',
@@ -165,6 +171,7 @@ export class InMemoryUserRepository implements IUserRepository {
       email: userDto.email,
       phone: userDto.phone,
       website: userDto.website,
+      accountId: userDto.accountId,
       address: existingUser.address,
       company: existingUser.company,
     }

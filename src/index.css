@@ -67,3 +67,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  /* Asegurar altura uniforme en las tarjetas de las grillas */
+  .grid > * > * > a {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+  }
+}

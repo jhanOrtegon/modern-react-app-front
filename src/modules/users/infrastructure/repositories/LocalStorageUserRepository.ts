@@ -54,6 +54,7 @@ export class LocalStorageUserRepository implements IUserRepository {
     const newUser: User = {
       id: this.generateId(),
       ...userDto,
+      accountId: userDto.accountId,
       address: {
         street: 'N/A',
         suite: 'N/A',
@@ -91,6 +92,7 @@ export class LocalStorageUserRepository implements IUserRepository {
       email: userDto.email,
       phone: userDto.phone,
       website: userDto.website,
+      accountId: userDto.accountId,
       address: existingUser.address,
       company: existingUser.company,
     }
@@ -110,5 +112,19 @@ export class LocalStorageUserRepository implements IUserRepository {
 
     this.saveUsers(filteredUsers)
     await Promise.resolve()
+  }
+
+  clearAll = async (accountId: number): Promise<void> => {
+    try {
+      const users = this.getUsers()
+      // Filtrar y mantener solo los usuarios que NO pertenecen a la cuenta especificada
+      const filteredUsers = users.filter(u => u.accountId !== accountId)
+      this.saveUsers(filteredUsers)
+      await Promise.resolve()
+    } catch (error) {
+      throw new Error(
+        `Failed to clear users: ${error instanceof Error ? error.message : 'Unknown error'}`
+      )
+    }
   }
 }

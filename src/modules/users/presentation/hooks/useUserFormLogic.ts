@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
 import { useForm, type UseFormReturn } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import type { CreateUserDto, UpdateUserDto } from '../../domain/entities/User'
 import {
   type UserFormData,
   userSchema,
@@ -34,6 +35,7 @@ export function useUserFormLogic(userId?: number): UseUserFormLogicReturn {
   const form = useForm<UserFormData | UserUpdateFormData>({
     resolver: zodResolver(isEditing ? userUpdateSchema : userSchema),
     defaultValues: {
+      accountId: undefined,
       name: '',
       username: '',
       email: '',
@@ -47,6 +49,7 @@ export function useUserFormLogic(userId?: number): UseUserFormLogicReturn {
   useEffect(() => {
     if (existingUser && isEditing) {
       form.reset({
+        accountId: existingUser.accountId,
         name: existingUser.name,
         username: existingUser.username,
         email: existingUser.email,
@@ -60,7 +63,8 @@ export function useUserFormLogic(userId?: number): UseUserFormLogicReturn {
   // Handle form submission
   const onSubmit = (data: UserFormData | UserUpdateFormData): void => {
     if (isEditing && userId && 'id' in data) {
-      updateUser.mutate(data, {
+      // El accountId se agrega automáticamente en useUpdateUser
+      updateUser.mutate(data as UpdateUserDto, {
         onSuccess: () => {
           navigate(`/users/${userId}`)
         },
@@ -71,7 +75,8 @@ export function useUserFormLogic(userId?: number): UseUserFormLogicReturn {
         },
       })
     } else {
-      createUser.mutate(data as UserFormData, {
+      // El accountId se agrega automáticamente en useCreateUser
+      createUser.mutate(data as CreateUserDto, {
         onSuccess: newUser => {
           navigate(`/users/${newUser.id}`)
         },
