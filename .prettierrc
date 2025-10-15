@@ -1,0 +1,24 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "useTabs": false,
+  "quoteProps": "as-needed",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "avoid",
+  "endOfLine": "lf",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindConfig": "./tailwind.config.ts",
+  "tailwindFunctions": ["cn", "clsx", "twMerge"],
+  "overrides": [
+    {
+      "files": "*.json",
+      "options": {
+        "printWidth": 120
+      }
+    }
+  ]
+}
