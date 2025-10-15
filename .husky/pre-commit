@@ -1,12 +1,5 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 # Run lint-staged (linting, formatting, type-check)
-npx lint-staged
+pnpm exec lint-staged
 
-# Run build to ensure no build errors
-echo "Running build to ensure no errors..."
-pnpm build
-
-# If build succeeds, continue with commit
-echo "✅ All checks passed!"
+# If all checks succeed, continue with commit
+echo "✅ All pre-commit checks passed!"

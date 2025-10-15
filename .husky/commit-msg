@@ -1,1 +1,3 @@
-npx --no -- commitlint --edit "$1"
+# Commitlint is not installed yet
+# Uncomment when you want to enforce conventional commits:
+# pnpm exec commitlint --edit "$1"
