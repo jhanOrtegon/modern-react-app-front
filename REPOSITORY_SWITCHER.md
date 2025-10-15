@@ -12,14 +12,14 @@ Se ha implementado un sistema completo de cambio dinámico de fuentes de datos t
 
 #### 1. LocalStoragePostRepository
 
-- **Ubicación:** `src/modules/posts/infrastructure/repositories/LocalStoragePostRepository.ts`
+- **Ubicación:** `src/features/posts/infrastructure/repositories/LocalStoragePostRepository.ts`
 - **Almacenamiento:** localStorage del navegador bajo la clave `posts_storage`
 - **Persistencia:** Los datos sobreviven a recargas de página
 - **Operaciones:** CRUD completo funcional
 
 #### 2. InMemoryPostRepository
 
-- **Ubicación:** `src/modules/posts/infrastructure/repositories/InMemoryPostRepository.ts`
+- **Ubicación:** `src/features/posts/infrastructure/repositories/InMemoryPostRepository.ts`
 - **Datos de prueba:** 10 posts pre-cargados con contenido técnico sobre React y desarrollo web
 - **Latencia simulada:** 200-400ms para simular llamadas de red
 - **Persistencia:** Solo durante la sesión actual
