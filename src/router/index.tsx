@@ -1,6 +1,8 @@
-import { Loader2 } from 'lucide-react'
 import { lazy, type ReactElement, Suspense } from 'react'
+
+import { Loader2 } from 'lucide-react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
+
 import { ProtectedRoute } from '../components/auth/ProtectedRoute'
 import { PublicRoute } from '../components/auth/PublicRoute'
 import { AppLayout } from '../components/layout/AppLayout'

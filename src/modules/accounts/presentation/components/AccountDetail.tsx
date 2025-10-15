@@ -1,9 +1,12 @@
-import { ArrowLeft, Edit, Mail, Trash2, User } from 'lucide-react'
 import type { ReactElement } from 'react'
+
+import { ArrowLeft, Edit, Mail, Trash2, User } from 'lucide-react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { FadeIn } from '../../../../components/shared/FadeIn'
-import { LoadingSpinner } from '../../../../components/shared/LoadingSpinner'
-import { Button } from '../../../../components/ui/button'
+
+import { FadeIn } from '@/components/shared/FadeIn'
+import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
+import { Button } from '@/components/ui/button'
+
 import { useAccount, useDeleteAccount } from '../hooks/useAccountOperations'
 
 export function AccountDetail(): ReactElement {

@@ -1,10 +1,13 @@
-import { Eye, EyeOff, LogIn } from 'lucide-react'
 import type { ReactElement } from 'react'
 import { useState } from 'react'
+
+import { Eye, EyeOff, LogIn } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { PageTransition } from '../../../../components/shared/PageTransition'
-import { Button } from '../../../../components/ui/button'
-import { Label } from '../../../../components/ui/label'
+
+import { PageTransition } from '@/components/shared/PageTransition'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+
 import { useLoginLogic } from '../hooks/useLoginLogic'
 
 export function LoginForm(): ReactElement {

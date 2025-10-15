@@ -1,6 +1,8 @@
+import type { ReactElement } from 'react'
+
 import { motion } from 'framer-motion'
 import { Moon, Sun } from 'lucide-react'
-import type { ReactElement } from 'react'
+
 import { useTheme } from '../theme-provider'
 import { Button } from './button'
 

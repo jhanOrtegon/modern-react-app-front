@@ -1,11 +1,15 @@
-import { AlertCircle } from 'lucide-react'
 import type { ReactElement } from 'react'
+
+import { AlertCircle } from 'lucide-react'
 import { useParams } from 'react-router-dom'
-import { FormLayout } from '../../../../components/layout/FormLayout'
-import { LoadingSpinner } from '../../../../components/shared/LoadingSpinner'
-import { Alert, AlertDescription } from '../../../../components/ui/alert'
-import { Label } from '../../../../components/ui/label'
-import { useAccounts } from '../../../accounts/presentation/hooks/useAccountOperations'
+
+import { FormLayout } from '@/components/layout/FormLayout'
+import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Label } from '@/components/ui/label'
+
+import { useAccounts } from '@/modules/accounts/presentation/hooks/useAccountOperations'
+
 import { usePostFormLogic } from '../hooks/usePostFormLogic'
 
 export function PostForm(): ReactElement {

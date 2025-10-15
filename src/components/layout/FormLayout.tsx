@@ -1,7 +1,9 @@
+import type { ReactElement, ReactNode } from 'react'
+
 import { motion } from 'framer-motion'
 import { ArrowLeft, Loader2, Save } from 'lucide-react'
-import type { ReactElement, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+
 import { SlideIn } from '../shared/SlideIn'
 import { Button } from '../ui/button'
 

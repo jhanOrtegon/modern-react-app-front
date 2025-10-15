@@ -1,6 +1,8 @@
-import { Database, Plus } from 'lucide-react'
 import type { ReactElement, ReactNode } from 'react'
+
+import { Database, Plus } from 'lucide-react'
 import { Link } from 'react-router-dom'
+
 import { Button } from '../ui/button'
 
 interface EmptyStateProps {

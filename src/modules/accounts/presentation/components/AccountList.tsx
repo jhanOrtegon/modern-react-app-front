@@ -1,18 +1,21 @@
-import { Mail, Plus, Trash2, User } from 'lucide-react'
 import type { ReactElement } from 'react'
 import { useMemo, useState } from 'react'
+
+import { Mail, Plus, Trash2, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { AnimatedCard } from '../../../../components/shared/AnimatedCard'
-import { EmptyState } from '../../../../components/shared/EmptyState'
-import { LoadingSpinner } from '../../../../components/shared/LoadingSpinner'
-import { Pagination } from '../../../../components/shared/Pagination'
-import { StaggerContainer } from '../../../../components/shared/StaggerContainer'
-import { Button } from '../../../../components/ui/button'
+
+import { AnimatedCard } from '@/components/shared/AnimatedCard'
+import { EmptyState } from '@/components/shared/EmptyState'
+import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
+import { Pagination } from '@/components/shared/Pagination'
+import { StaggerContainer } from '@/components/shared/StaggerContainer'
+import { Button } from '@/components/ui/button'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '../../../../components/ui/popover'
+} from '@/components/ui/popover'
+
 import { useAccounts, useClearAllAccounts } from '../hooks/useAccountOperations'
 
 const ITEMS_PER_PAGE = 9

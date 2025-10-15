@@ -1,12 +1,15 @@
+import type { ReactElement } from 'react'
+
 import { motion } from 'framer-motion'
 import { Edit, Trash2 } from 'lucide-react'
-import type { ReactElement } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
-import { DetailLayout } from '../../../../components/layout/DetailLayout'
-import { FadeIn } from '../../../../components/shared/FadeIn'
-import { LoadingSpinner } from '../../../../components/shared/LoadingSpinner'
-import { Button } from '../../../../components/ui/button'
+
+import { DetailLayout } from '@/components/layout/DetailLayout'
+import { FadeIn } from '@/components/shared/FadeIn'
+import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
+import { Button } from '@/components/ui/button'
+
 import { useDeletePost, usePost } from '../hooks/usePostOperations'
 
 export function PostDetail(): ReactElement {

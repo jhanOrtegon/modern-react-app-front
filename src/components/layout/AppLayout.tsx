@@ -1,8 +1,10 @@
-import { Database, LogOut, Menu, User } from 'lucide-react'
 import type { ReactElement } from 'react'
 import { useState } from 'react'
+
+import { Database, LogOut, Menu, User } from 'lucide-react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+
 import { useClearAllPosts } from '../../modules/posts/presentation/hooks/usePostOperations'
 import { useClearAllUsers } from '../../modules/users/presentation/hooks/useUserOperations'
 import { useAuthStore } from '../../stores/authStore'

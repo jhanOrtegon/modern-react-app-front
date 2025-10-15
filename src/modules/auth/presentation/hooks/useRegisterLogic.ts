@@ -1,10 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import type { UseFormReturn } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
+import type { UseFormReturn } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
-import { useAuthStore } from '../../../../stores/authStore'
+
+import { useAuthStore } from '@/stores/authStore'
+
 import { authContainer } from '../../di/AuthContainer'
 import {
   type RegisterFormData,

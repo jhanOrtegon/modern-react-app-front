@@ -1,10 +1,13 @@
-import { ArrowLeft, Loader2, Save } from 'lucide-react'
 import type { ReactElement } from 'react'
+
+import { ArrowLeft, Loader2, Save } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
-import { FadeIn } from '../../../../components/shared/FadeIn'
-import { FormField } from '../../../../components/shared/FormField'
-import { LoadingSpinner } from '../../../../components/shared/LoadingSpinner'
-import { Button } from '../../../../components/ui/button'
+
+import { FadeIn } from '@/components/shared/FadeIn'
+import { FormField } from '@/components/shared/FormField'
+import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
+import { Button } from '@/components/ui/button'
+
 import { useAccountFormLogic } from '../hooks/useAccountFormLogic'
 
 export function AccountForm(): ReactElement {

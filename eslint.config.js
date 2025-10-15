@@ -1,5 +1,6 @@
 import js from '@eslint/js'
 import tanstackQuery from '@tanstack/eslint-plugin-query'
+import importPlugin from 'eslint-plugin-import'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -45,6 +46,7 @@ export default tseslint.config(
       'jsx-a11y': jsxA11y,
       tailwindcss,
       '@tanstack/query': tanstackQuery,
+      import: importPlugin,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -155,12 +157,67 @@ export default tseslint.config(
       'no-nested-ternary': 'error',
       'spaced-comment': ['error', 'always'],
 
-      // Import/Export
+      // Import/Export - Reglas estrictas de ordenamiento
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            ['parent', 'sibling'],
+            'index',
+            'object',
+            'type',
+          ],
+          pathGroups: [
+            {
+              pattern: 'react',
+              group: 'builtin',
+              position: 'before',
+            },
+            {
+              pattern: '@/components/**',
+              group: 'internal',
+              position: 'after',
+            },
+            {
+              pattern: '@/lib/**',
+              group: 'internal',
+              position: 'after',
+            },
+            {
+              pattern: '@/stores/**',
+              group: 'internal',
+              position: 'after',
+            },
+            {
+              pattern: '@/modules/**',
+              group: 'internal',
+              position: 'after',
+            },
+          ],
+          pathGroupsExcludedImportTypes: ['react'],
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
+      'import/first': 'error',
+      'import/newline-after-import': 'error',
+      'import/no-duplicates': 'error',
+      'import/no-unresolved': 'off', // Desactivado porque TypeScript ya lo maneja
+      'import/named': 'off',
+      'import/namespace': 'off',
+      'import/default': 'off',
+      'import/no-named-as-default-member': 'off',
       'sort-imports': [
         'error',
         {
           ignoreCase: true,
-          ignoreDeclarationSort: true,
+          ignoreDeclarationSort: true, // Desactivado porque usamos import/order
           ignoreMemberSort: false,
           memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
         },

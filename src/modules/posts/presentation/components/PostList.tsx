@@ -1,22 +1,25 @@
-import { Plus, Trash2 } from 'lucide-react'
 import type { ReactElement } from 'react'
 import { useMemo, useState } from 'react'
+
+import { Plus, Trash2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { AnimatedCard } from '../../../../components/shared/AnimatedCard'
-import { EmptyState } from '../../../../components/shared/EmptyState'
-import { LoadingSpinner } from '../../../../components/shared/LoadingSpinner'
-import { PageTransition } from '../../../../components/shared/PageTransition'
-import { Pagination } from '../../../../components/shared/Pagination'
+
+import { AnimatedCard } from '@/components/shared/AnimatedCard'
+import { EmptyState } from '@/components/shared/EmptyState'
+import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
+import { PageTransition } from '@/components/shared/PageTransition'
+import { Pagination } from '@/components/shared/Pagination'
 import {
   StaggerContainer,
   StaggerItem,
-} from '../../../../components/shared/StaggerContainer'
-import { Button } from '../../../../components/ui/button'
+} from '@/components/shared/StaggerContainer'
+import { Button } from '@/components/ui/button'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '../../../../components/ui/popover'
+} from '@/components/ui/popover'
+
 import { useClearAllPosts, usePosts } from '../hooks/usePostOperations'
 
 const ITEMS_PER_PAGE = 9

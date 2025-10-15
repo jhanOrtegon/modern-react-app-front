@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+
 import type { User } from '../../domain/entities/User'
 import { useDeleteUser, useUser } from './useUserOperations'
 

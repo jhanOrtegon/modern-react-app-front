@@ -1,7 +1,9 @@
+import type { ReactElement, ReactNode } from 'react'
+
 import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
-import type { ReactElement, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+
 import { PageTransition } from '../shared/PageTransition'
 import { Button } from '../ui/button'
 
