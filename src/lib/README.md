@@ -13,6 +13,14 @@ lib/
 │   └── index.ts       # Barrel export
 ├── validators/        # Funciones de validación
 │   └── index.ts       # Validaciones comunes
+├── errors/           # Sistema de errores personalizados
+│   ├── DomainError.ts           # Errores de dominio
+│   ├── handleRepositoryError.ts # Handler de errores de repo
+│   └── index.ts                 # Barrel export
+├── logger/           # Sistema de logging
+│   ├── Logger.ts     # Logger centralizado
+│   └── index.ts      # Barrel export
+├── query-keys.ts     # Factory de query keys (React Query)
 └── utils.ts          # Utilidades generales (Tailwind merge)
 ```
 
@@ -253,8 +261,72 @@ Gracias a los barrel exports, puedes importar todo desde un solo lugar:
 ```typescript
 // ✅ Recomendado
 import { formatDate, formatCurrency, isValidEmail } from '@/lib/formatters'
+import { DomainError, ValidationError } from '@/lib/errors'
+import { logger } from '@/lib/logger'
+import { queryKeys } from '@/lib/query-keys'
 
 // ❌ Evitar
 import { formatDate } from '@/lib/formatters/date'
 import { formatCurrency } from '@/lib/formatters/number'
+```
+
+## 🚨 Sistema de Errores (`errors/`)
+
+### Errores de Dominio
+
+```typescript
+import { ValidationError, NotFoundError, UnauthorizedError } from '@/lib/errors'
+
+// Lanzar error de validación
+throw new ValidationError('El email no es válido', 'email')
+
+// Lanzar error de recurso no encontrado
+throw new NotFoundError('Post', 123)
+
+// Lanzar error de autorización
+throw new UnauthorizedError('Debes iniciar sesión')
+```
+
+### Handler de Errores de Repositorio
+
+```typescript
+import { handleRepositoryError } from '@/lib/errors'
+
+try {
+  const data = await fetch('/api/posts')
+} catch (error) {
+  handleRepositoryError(error, 'obtener posts')
+}
+```
+
+## 📊 Logger Centralizado (`logger/`)
+
+```typescript
+import { logger } from '@/lib/logger'
+
+// Logs con niveles
+logger.debug('Datos de debug', { userId: 123 })
+logger.info('Usuario creado', { module: 'users', userId: 123 })
+logger.warn('Operación lenta', { duration: 5000 })
+logger.error('Error al crear post', error, { module: 'posts' })
+```
+
+## 🔑 Query Keys Factory (`query-keys.ts`)
+
+```typescript
+import { queryKeys } from '@/lib/query-keys'
+import { useQuery } from '@tanstack/react-query'
+
+// Usar en queries
+const { data } = useQuery({
+  queryKey: queryKeys.posts.list(accountId),
+  queryFn: () => getPostsUseCase.execute(accountId),
+})
+
+// Invalidar cache
+queryClient.invalidateQueries({ queryKey: queryKeys.posts.all })
+```
+
+```
+
 ```

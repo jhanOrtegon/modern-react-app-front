@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { RouterProvider } from 'react-router-dom'
 import { Toaster } from 'sonner'
 
+// import { ErrorBoundaryTest } from './components/shared/ErrorBoundaryTest'
 import { router } from './router'
 
 const queryClient = new QueryClient({
@@ -22,6 +23,8 @@ function App(): ReactElement {
       <RouterProvider router={router} />
       <Toaster richColors position="top-right" />
       <ReactQueryDevtools initialIsOpen={false} />
+      {/* Descomentar para probar el ErrorBoundary */}
+      {/* <ErrorBoundaryTest /> */}
     </QueryClientProvider>
   )
 }

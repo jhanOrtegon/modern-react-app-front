@@ -6,11 +6,12 @@ import { Database, HardDrive, Server } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { postsContainer } from '../../modules/posts/di/PostsContainer'
-import type { PostRepositoryType } from '../../modules/posts/di/PostsContainer'
 import { usersContainer } from '../../modules/users/di/UsersContainer'
-import type { UserRepositoryType } from '../../modules/users/di/UsersContainer'
 import { useRepositoryStore } from '../../stores/repositoryStore'
 import { Button } from '../ui/button'
+
+import type { PostRepositoryType } from '../../modules/posts/di/PostsContainer'
+import type { UserRepositoryType } from '../../modules/users/di/UsersContainer'
 
 interface RepositoryOption {
   value: UserRepositoryType | PostRepositoryType

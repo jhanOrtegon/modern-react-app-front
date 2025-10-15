@@ -1,7 +1,8 @@
 import { LoginUseCase } from '../application/use-cases/LoginUseCase'
 import { RegisterUseCase } from '../application/use-cases/RegisterUseCase'
-import type { IAuthRepository } from '../domain/repositories/IAuthRepository'
 import { LocalStorageAuthRepository } from '../infrastructure/repositories/LocalStorageAuthRepository'
+
+import type { IAuthRepository } from '../domain/repositories/IAuthRepository'
 
 /**
  * Contenedor de inyección de dependencias para el módulo de autenticación

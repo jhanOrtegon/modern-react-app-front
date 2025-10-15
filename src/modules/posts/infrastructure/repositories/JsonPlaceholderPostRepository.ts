@@ -1,10 +1,11 @@
+import { PostAdapter } from '../adapters/PostAdapter'
+
 import type {
   CreatePostDto,
   Post,
   UpdatePostDto,
 } from '../../domain/entities/Post'
 import type { IPostRepository } from '../../domain/repositories/IPostRepository'
-import { PostAdapter } from '../adapters/PostAdapter'
 import type { PostAPIResponse } from '../types/PostAPITypes'
 
 export class JsonPlaceholderPostRepository implements IPostRepository {

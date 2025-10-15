@@ -1,17 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
-import type { UseFormReturn } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
-
-import { useAuthStore } from '@/stores/authStore'
 
 import { authContainer } from '../../di/AuthContainer'
 import {
   type LoginFormData,
   loginSchema,
 } from '../../domain/schemas/authSchema'
+import { useAuthStore } from '../../infrastructure/stores'
+
+import type { UseFormReturn } from 'react-hook-form'
 
 export function useLoginLogic(): {
   form: UseFormReturn<LoginFormData>

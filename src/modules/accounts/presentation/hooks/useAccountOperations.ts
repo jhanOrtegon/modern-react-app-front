@@ -8,6 +8,7 @@ import {
 import { toast } from 'sonner'
 
 import { accountsContainer } from '../../di/AccountsContainer'
+
 import type {
   Account,
   CreateAccountDto,

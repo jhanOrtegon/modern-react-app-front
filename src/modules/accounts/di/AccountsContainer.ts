@@ -4,8 +4,14 @@ import { DeleteAccountUseCase } from '../application/use-cases/DeleteAccountUseC
 import { GetAccountsUseCase } from '../application/use-cases/GetAccountsUseCase'
 import { GetAccountUseCase } from '../application/use-cases/GetAccountUseCase'
 import { UpdateAccountUseCase } from '../application/use-cases/UpdateAccountUseCase'
-import type { IAccountRepository } from '../domain/repositories/IAccountRepository'
 import { LocalStorageAccountRepository } from '../infrastructure/repositories/LocalStorageAccountRepository'
+
+import type { IAccountRepository } from '../domain/repositories/IAccountRepository'
+
+/**
+ * Tipos de repositorio disponibles para Accounts
+ */
+export type AccountRepositoryType = 'localStorage'
 
 /**
  * Dependency Injection Container para el módulo de Accounts
@@ -19,6 +25,33 @@ class AccountsContainer {
   private updateAccountUseCase?: UpdateAccountUseCase
   private deleteAccountUseCase?: DeleteAccountUseCase
   private clearAllAccountsUseCase?: ClearAllAccountsUseCase
+  private repositoryType: AccountRepositoryType = 'localStorage'
+
+  /**
+   * Cambia el tipo de repositorio y resetea todas las instancias
+   * @param type - El tipo de repositorio a usar
+   */
+  setRepositoryType(type: AccountRepositoryType): void {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (this.repositoryType !== type) {
+      this.repositoryType = type
+      // Resetear todas las instancias para que usen el nuevo repositorio
+      this.accountRepository = undefined
+      this.getAccountsUseCase = undefined
+      this.getAccountUseCase = undefined
+      this.createAccountUseCase = undefined
+      this.updateAccountUseCase = undefined
+      this.deleteAccountUseCase = undefined
+      this.clearAllAccountsUseCase = undefined
+    }
+  }
+
+  /**
+   * Obtiene el tipo de repositorio actual
+   */
+  getRepositoryType(): AccountRepositoryType {
+    return this.repositoryType
+  }
 
   // Repository
   getAccountRepository(): IAccountRepository {

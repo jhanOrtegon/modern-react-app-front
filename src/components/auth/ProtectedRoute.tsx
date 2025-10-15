@@ -2,7 +2,7 @@ import type { ReactElement } from 'react'
 
 import { Navigate, Outlet } from 'react-router-dom'
 
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStore } from '@/modules/auth/infrastructure/stores'
 
 /**
  * Componente que protege rutas requiriendo autenticación

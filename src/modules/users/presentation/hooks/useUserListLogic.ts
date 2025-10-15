@@ -1,5 +1,6 @@
-import type { User } from '../../domain/entities/User'
 import { useUsers } from './useUserOperations'
+
+import type { User } from '../../domain/entities/User'
 
 interface UseUserListLogicReturn {
   users: User[] | undefined

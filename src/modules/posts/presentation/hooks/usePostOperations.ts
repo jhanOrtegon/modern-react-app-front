@@ -7,9 +7,10 @@ import {
 } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { useAuthStore } from '@/stores/authStore'
+import { useAuthStore } from '@/modules/auth/infrastructure/stores'
 
 import { postsContainer } from '../../di/PostsContainer'
+
 import type {
   CreatePostDto,
   Post,

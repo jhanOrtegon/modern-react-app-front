@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
-import type { Post } from '../../domain/entities/Post'
 import { useDeletePost, usePost } from './usePostOperations'
+
+import type { Post } from '../../domain/entities/Post'
 
 interface UsePostDetailLogicReturn {
   post: Post | null | undefined

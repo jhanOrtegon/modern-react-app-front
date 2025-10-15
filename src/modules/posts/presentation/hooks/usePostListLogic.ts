@@ -1,5 +1,6 @@
-import type { Post } from '../../domain/entities/Post'
 import { usePosts } from './usePostOperations'
+
+import type { Post } from '../../domain/entities/Post'
 
 interface UsePostListLogicReturn {
   posts: Post[] | undefined

@@ -1,10 +1,11 @@
+import { UserAdapter } from '../adapters/UserAdapter'
+
 import type {
   CreateUserDto,
   UpdateUserDto,
   User,
 } from '../../domain/entities/User'
 import type { IUserRepository } from '../../domain/repositories/IUserRepository'
-import { UserAdapter } from '../adapters/UserAdapter'
 import type { UserAPIResponse } from '../types/UserAPITypes'
 
 export class JsonPlaceholderUserRepository implements IUserRepository {

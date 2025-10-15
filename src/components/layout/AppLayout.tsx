@@ -5,9 +5,10 @@ import { Database, LogOut, Menu, User } from 'lucide-react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
+import { useAuthStore } from '@/modules/auth/infrastructure/stores'
+
 import { useClearAllPosts } from '../../modules/posts/presentation/hooks/usePostOperations'
 import { useClearAllUsers } from '../../modules/users/presentation/hooks/useUserOperations'
-import { useAuthStore } from '../../stores/authStore'
 import { useRepositoryStore } from '../../stores/repositoryStore'
 import { RepositorySelector } from '../shared/RepositorySelector'
 import { Button } from '../ui/button'

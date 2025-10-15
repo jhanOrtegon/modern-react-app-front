@@ -5,6 +5,7 @@ import * as ReactDOM from 'react-dom/client'
 import '@/index.css'
 
 import App from './App.tsx'
+import { ErrorBoundary } from './components/shared/ErrorBoundary'
 import { ThemeProvider } from './components/theme-provider'
 
 const root = document.getElementById('root')
@@ -17,8 +18,10 @@ if (!root) {
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <App />
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <App />
+      </ThemeProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 )

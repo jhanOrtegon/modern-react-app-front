@@ -4,10 +4,11 @@ import { DeleteUserUseCase } from '../application/use-cases/DeleteUserUseCase'
 import { GetUsersUseCase } from '../application/use-cases/GetUsersUseCase'
 import { GetUserUseCase } from '../application/use-cases/GetUserUseCase'
 import { UpdateUserUseCase } from '../application/use-cases/UpdateUserUseCase'
-import type { IUserRepository } from '../domain/repositories/IUserRepository'
 import { InMemoryUserRepository } from '../infrastructure/repositories/InMemoryUserRepository'
 import { JsonPlaceholderUserRepository } from '../infrastructure/repositories/JsonPlaceholderUserRepository'
 import { LocalStorageUserRepository } from '../infrastructure/repositories/LocalStorageUserRepository'
+
+import type { IUserRepository } from '../domain/repositories/IUserRepository'
 
 // Tipos de repositorio disponibles
 export type UserRepositoryType = 'jsonplaceholder' | 'localStorage' | 'inMemory'

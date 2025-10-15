@@ -4,10 +4,11 @@ import { DeletePostUseCase } from '../application/use-cases/DeletePostUseCase'
 import { GetPostsUseCase } from '../application/use-cases/GetPostsUseCase'
 import { GetPostUseCase } from '../application/use-cases/GetPostUseCase'
 import { UpdatePostUseCase } from '../application/use-cases/UpdatePostUseCase'
-import type { IPostRepository } from '../domain/repositories/IPostRepository'
 import { InMemoryPostRepository } from '../infrastructure/repositories/InMemoryPostRepository'
 import { JsonPlaceholderPostRepository } from '../infrastructure/repositories/JsonPlaceholderPostRepository'
 import { LocalStoragePostRepository } from '../infrastructure/repositories/LocalStoragePostRepository'
+
+import type { IPostRepository } from '../domain/repositories/IPostRepository'
 
 // Tipos de repositorio disponibles
 export type PostRepositoryType = 'jsonplaceholder' | 'localStorage' | 'inMemory'

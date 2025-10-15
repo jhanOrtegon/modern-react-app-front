@@ -2,7 +2,7 @@ import type { ReactElement } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStore } from '@/modules/auth/infrastructure/stores'
 
 interface PublicRouteProps {
   children: ReactElement
