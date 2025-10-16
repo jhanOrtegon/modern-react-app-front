@@ -1,6 +1,19 @@
 # Modern React 19 App
 
-A modern React application built with the latest technologies and best practices.
+A modern React application built with the latest technologies, best practices, and **enterprise-level architecture**.
+
+## ⭐ Destacados
+
+- ✅ **Clean Architecture** - Arquitectura limpia con separación de responsabilidades
+- ✅ **ErrorBoundary Activo** - Manejo profesional de errores en React
+- ✅ **Validación de Dominio** - Validadores centralizados para reglas de negocio
+- ✅ **Logger Centralizado** - Sistema de logging estructurado
+- ✅ **Query Keys Factory** - Cache management organizado
+- ✅ **Errores Personalizados** - Sistema de errores tipados
+
+📚 **[Ver Documentación Completa →](./IMPLEMENTATION_SUMMARY.md)**
+
+---
 
 ## 🚀 Tech Stack
 
@@ -105,7 +118,27 @@ src/
 - `pnpm format:check` - Check code formatting
 - `pnpm type-check` - Run TypeScript compiler
 
-## 🔧 Configuration Files
+## � Documentación
+
+### 📖 Guías de Implementación
+
+- **[IMPLEMENTATION_SUMMARY.md](./IMPLEMENTATION_SUMMARY.md)** - Resumen completo de mejoras arquitecturales
+- **[IMPLEMENTATION_STATUS.md](./IMPLEMENTATION_STATUS.md)** - Estado actual de la implementación
+- **[USAGE_GUIDE.md](./USAGE_GUIDE.md)** - Guía práctica de uso de las nuevas utilidades
+- **[FINAL_CHECKLIST.md](./FINAL_CHECKLIST.md)** - Checklist completo de implementación
+
+### 🏗️ Arquitectura
+
+- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - Documentación de arquitectura
+- **[ARCHITECTURE_REVIEW.md](./ARCHITECTURE_REVIEW.md)** - Review completo de arquitectura (9/10)
+
+### 📦 Librerías
+
+- **[src/lib/README.md](./src/lib/README.md)** - Documentación de utilidades (errores, logger, validators)
+
+---
+
+## �🔧 Configuration Files
 
 - `vite.config.ts` - Vite configuration
 - `tsconfig.json` - TypeScript configuration
@@ -124,6 +157,8 @@ The project uses Husky to run the following checks before commits:
 
 ## 📚 Learn More
 
+### External Documentation
+
 - [React 19 Documentation](https://react.dev)
 - [Vite Documentation](https://vitejs.dev)
 - [TypeScript Documentation](https://www.typescriptlang.org)
@@ -131,6 +166,15 @@ The project uses Husky to run the following checks before commits:
 - [shadcn/ui Documentation](https://ui.shadcn.com)
 - [TanStack Query Documentation](https://tanstack.com/query)
 - [React Router Documentation](https://reactrouter.com)
+
+### Project Documentation
+
+- **[Implementation Summary](./IMPLEMENTATION_SUMMARY.md)** - Resumen completo de implementaciones
+- **[Usage Guide](./USAGE_GUIDE.md)** - Guía de uso de utilidades
+- **[Query Keys Architecture](./QUERY_KEYS_ARCHITECTURE.md)** - Arquitectura de Query Keys modular
+- **[Query Keys Migration](./QUERY_KEYS_MIGRATION.md)** - Migración de Query Keys centralizado a modular
+- **[Validators Architecture](./VALIDATORS_ARCHITECTURE.md)** - Arquitectura de Validators modular
+- **[Final Checklist](./FINAL_CHECKLIST.md)** - Checklist de implementación
 
 ## 📄 License
 

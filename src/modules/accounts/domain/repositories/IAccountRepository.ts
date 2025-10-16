@@ -1,8 +1,5 @@
-import type {
-  Account,
-  CreateAccountDto,
-  UpdateAccountDto,
-} from '../entities/Account'
+import type { CreateAccountDto, UpdateAccountDto } from '../dtos'
+import type { Account } from '../entities/Account'
 
 /**
  * Interface del repositorio de cuentas

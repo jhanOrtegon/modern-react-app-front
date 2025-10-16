@@ -1,10 +1,9 @@
-import { PostAdapter } from '../adapters/PostAdapter'
+import { NetworkError, NotFoundError, RepositoryError } from '@/lib/errors'
 
-import type {
-  CreatePostDto,
-  Post,
-  UpdatePostDto,
-} from '../../domain/entities/Post'
+import { PostAdapter } from '../../domain/adapters/PostAdapter'
+
+import type { CreatePostDto, UpdatePostDto } from '../../domain/dtos'
+import type { Post } from '../../domain/entities/Post'
 import type { IPostRepository } from '../../domain/repositories/IPostRepository'
 import type { PostAPIResponse } from '../types/PostAPITypes'
 
@@ -15,13 +14,17 @@ export class JsonPlaceholderPostRepository implements IPostRepository {
     try {
       const response = await fetch(`${this.baseUrl}/posts`)
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as PostAPIResponse[]
       return PostAdapter.toDomainList(data)
     } catch (error) {
-      throw new Error(
-        `Failed to fetch posts: ${error instanceof Error ? error.message : 'Unknown error'}`
+      if (error instanceof NetworkError) {
+        throw error
+      }
+      throw new RepositoryError(
+        error instanceof Error ? error.message : 'Unknown error',
+        'obtener posts'
       )
     }
   }
@@ -31,18 +34,22 @@ export class JsonPlaceholderPostRepository implements IPostRepository {
       const response = await fetch(`${this.baseUrl}/posts/${String(id)}`)
       if (!response.ok) {
         if (response.status === 404) {
-          return null
+          throw new NotFoundError('Post', id)
         }
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as PostAPIResponse
       return PostAdapter.toDomain(data)
     } catch (error) {
-      if (error instanceof Error && error.message.includes('404')) {
+      if (error instanceof NotFoundError) {
         return null
       }
-      throw new Error(
-        `Failed to fetch post ${String(id)}: ${error instanceof Error ? error.message : 'Unknown error'}`
+      if (error instanceof NetworkError) {
+        throw error
+      }
+      throw new RepositoryError(
+        error instanceof Error ? error.message : 'Unknown error',
+        `obtener post ${String(id)}`
       )
     }
   }
@@ -57,13 +64,17 @@ export class JsonPlaceholderPostRepository implements IPostRepository {
         body: JSON.stringify(PostAdapter.toAPICreate(post)),
       })
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as PostAPIResponse
       return PostAdapter.toDomain(data)
     } catch (error) {
-      throw new Error(
-        `Failed to create post: ${error instanceof Error ? error.message : 'Unknown error'}`
+      if (error instanceof NetworkError) {
+        throw error
+      }
+      throw new RepositoryError(
+        error instanceof Error ? error.message : 'Unknown error',
+        'crear post'
       )
     }
   }
@@ -78,13 +89,20 @@ export class JsonPlaceholderPostRepository implements IPostRepository {
         body: JSON.stringify(PostAdapter.toAPIUpdate(post)),
       })
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        if (response.status === 404) {
+          throw new NotFoundError('Post', post.id)
+        }
+        throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as PostAPIResponse
       return PostAdapter.toDomain(data)
     } catch (error) {
-      throw new Error(
-        `Failed to update post ${String(post.id)}: ${error instanceof Error ? error.message : 'Unknown error'}`
+      if (error instanceof NotFoundError || error instanceof NetworkError) {
+        throw error
+      }
+      throw new RepositoryError(
+        error instanceof Error ? error.message : 'Unknown error',
+        `actualizar post ${String(post.id)}`
       )
     }
   }
@@ -95,11 +113,18 @@ export class JsonPlaceholderPostRepository implements IPostRepository {
         method: 'DELETE',
       })
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        if (response.status === 404) {
+          throw new NotFoundError('Post', id)
+        }
+        throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
     } catch (error) {
-      throw new Error(
-        `Failed to delete post ${String(id)}: ${error instanceof Error ? error.message : 'Unknown error'}`
+      if (error instanceof NotFoundError || error instanceof NetworkError) {
+        throw error
+      }
+      throw new RepositoryError(
+        error instanceof Error ? error.message : 'Unknown error',
+        `eliminar post ${String(id)}`
       )
     }
   }

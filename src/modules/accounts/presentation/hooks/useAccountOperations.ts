@@ -8,16 +8,14 @@ import {
 import { toast } from 'sonner'
 
 import { accountsContainer } from '../../di/AccountsContainer'
+import { accountQueryKeys } from '../query-keys/accountQueryKeys'
 
-import type {
-  Account,
-  CreateAccountDto,
-  UpdateAccountDto,
-} from '../../domain/entities/Account'
+import type { CreateAccountDto, UpdateAccountDto } from '../../domain/dtos'
+import type { Account } from '../../domain/entities/Account'
 
 export function useAccounts(): UseQueryResult<Account[]> {
   return useQuery({
-    queryKey: ['accounts'],
+    queryKey: accountQueryKeys.all,
     queryFn: async () => {
       const getAccountsUseCase = accountsContainer.getGetAccountsUseCase()
       return await getAccountsUseCase.execute()
@@ -29,7 +27,7 @@ export function useAccount(
   id: number | undefined
 ): UseQueryResult<Account | null> {
   return useQuery({
-    queryKey: ['account', id],
+    queryKey: accountQueryKeys.detail(id ?? 0),
     queryFn: async () => {
       if (!id) {
         return null
@@ -54,7 +52,7 @@ export function useCreateAccount(): UseMutationResult<
       return await createAccountUseCase.execute(account)
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['accounts'] })
+      void queryClient.invalidateQueries({ queryKey: accountQueryKeys.all })
       toast.success('Cuenta creada exitosamente!')
     },
     onError: (error: Error) => {
@@ -76,9 +74,9 @@ export function useUpdateAccount(): UseMutationResult<
       return await updateAccountUseCase.execute(account)
     },
     onSuccess: (_, variables) => {
-      void queryClient.invalidateQueries({ queryKey: ['accounts'] })
+      void queryClient.invalidateQueries({ queryKey: accountQueryKeys.all })
       void queryClient.invalidateQueries({
-        queryKey: ['account', variables.id],
+        queryKey: accountQueryKeys.detail(variables.id),
       })
       toast.success('Cuenta actualizada exitosamente!')
     },
@@ -97,7 +95,7 @@ export function useDeleteAccount(): UseMutationResult<void, Error, number> {
       await deleteAccountUseCase.execute(id)
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['accounts'] })
+      void queryClient.invalidateQueries({ queryKey: accountQueryKeys.all })
       toast.success('Cuenta eliminada exitosamente!')
     },
     onError: (error: Error) => {
@@ -116,7 +114,7 @@ export function useClearAllAccounts(): UseMutationResult<void, Error, void> {
       await clearAllAccountsUseCase.execute()
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['accounts'] })
+      void queryClient.invalidateQueries({ queryKey: accountQueryKeys.all })
       toast.success('Todas las cuentas han sido eliminadas!')
     },
     onError: (error: Error) => {

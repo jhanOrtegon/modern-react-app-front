@@ -12,7 +12,7 @@ import {
   userUpdateSchema,
 } from '../../domain/schemas/userSchema'
 
-import type { CreateUserDto, UpdateUserDto } from '../../domain/entities/User'
+import type { CreateUserDto, UpdateUserDto } from '../../domain/dtos'
 
 interface UseUserFormLogicReturn {
   form: UseFormReturn<UserFormData | UserUpdateFormData>

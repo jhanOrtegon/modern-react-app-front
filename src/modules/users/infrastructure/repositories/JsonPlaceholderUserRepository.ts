@@ -1,10 +1,9 @@
+import { NetworkError, NotFoundError, RepositoryError } from '@/lib/errors'
+
 import { UserAdapter } from '../adapters/UserAdapter'
 
-import type {
-  CreateUserDto,
-  UpdateUserDto,
-  User,
-} from '../../domain/entities/User'
+import type { CreateUserDto, UpdateUserDto } from '../../domain/dtos'
+import type { User } from '../../domain/entities/User'
 import type { IUserRepository } from '../../domain/repositories/IUserRepository'
 import type { UserAPIResponse } from '../types/UserAPITypes'
 
@@ -15,13 +14,17 @@ export class JsonPlaceholderUserRepository implements IUserRepository {
     try {
       const response = await fetch(`${this.baseUrl}/users`)
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as UserAPIResponse[]
       return UserAdapter.toDomainList(data)
     } catch (error) {
-      throw new Error(
-        `Failed to fetch users: ${error instanceof Error ? error.message : 'Unknown error'}`
+      if (error instanceof NetworkError) {
+        throw error
+      }
+      throw new RepositoryError(
+        error instanceof Error ? error.message : 'Unknown error',
+        'obtener usuarios'
       )
     }
   }
@@ -31,18 +34,22 @@ export class JsonPlaceholderUserRepository implements IUserRepository {
       const response = await fetch(`${this.baseUrl}/users/${String(id)}`)
       if (!response.ok) {
         if (response.status === 404) {
-          return null
+          throw new NotFoundError('User', id)
         }
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as UserAPIResponse
       return UserAdapter.toDomain(data)
     } catch (error) {
-      if (error instanceof Error && error.message.includes('404')) {
+      if (error instanceof NotFoundError) {
         return null
       }
-      throw new Error(
-        `Failed to fetch user ${String(id)}: ${error instanceof Error ? error.message : 'Unknown error'}`
+      if (error instanceof NetworkError) {
+        throw error
+      }
+      throw new RepositoryError(
+        error instanceof Error ? error.message : 'Unknown error',
+        `obtener usuario ${String(id)}`
       )
     }
   }
@@ -57,7 +64,7 @@ export class JsonPlaceholderUserRepository implements IUserRepository {
         body: JSON.stringify(UserAdapter.toAPICreate(user)),
       })
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as UserAPIResponse
       // JSONPlaceholder doesn't return full user object on create, so we need to create a mock one
@@ -76,8 +83,12 @@ export class JsonPlaceholderUserRepository implements IUserRepository {
         },
       }
     } catch (error) {
-      throw new Error(
-        `Failed to create user: ${error instanceof Error ? error.message : 'Unknown error'}`
+      if (error instanceof NetworkError) {
+        throw error
+      }
+      throw new RepositoryError(
+        error instanceof Error ? error.message : 'Unknown error',
+        'crear usuario'
       )
     }
   }
@@ -92,13 +103,20 @@ export class JsonPlaceholderUserRepository implements IUserRepository {
         body: JSON.stringify(UserAdapter.toAPIUpdate(user)),
       })
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        if (response.status === 404) {
+          throw new NotFoundError('User', user.id)
+        }
+        throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as UserAPIResponse
       return UserAdapter.toDomain(data)
     } catch (error) {
-      throw new Error(
-        `Failed to update user ${String(user.id)}: ${error instanceof Error ? error.message : 'Unknown error'}`
+      if (error instanceof NotFoundError || error instanceof NetworkError) {
+        throw error
+      }
+      throw new RepositoryError(
+        error instanceof Error ? error.message : 'Unknown error',
+        `actualizar usuario ${String(user.id)}`
       )
     }
   }
@@ -109,11 +127,18 @@ export class JsonPlaceholderUserRepository implements IUserRepository {
         method: 'DELETE',
       })
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        if (response.status === 404) {
+          throw new NotFoundError('User', id)
+        }
+        throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
     } catch (error) {
-      throw new Error(
-        `Failed to delete user ${String(id)}: ${error instanceof Error ? error.message : 'Unknown error'}`
+      if (error instanceof NotFoundError || error instanceof NetworkError) {
+        throw error
+      }
+      throw new RepositoryError(
+        error instanceof Error ? error.message : 'Unknown error',
+        `eliminar usuario ${String(id)}`
       )
     }
   }

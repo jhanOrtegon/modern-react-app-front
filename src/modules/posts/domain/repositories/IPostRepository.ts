@@ -1,4 +1,5 @@
-import type { CreatePostDto, Post, UpdatePostDto } from '../entities/Post'
+import type { CreatePostDto, UpdatePostDto } from '../dtos'
+import type { Post } from '../entities/Post'
 
 /**
  * Interfaz del repositorio de Posts

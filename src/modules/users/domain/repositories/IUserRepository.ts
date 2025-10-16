@@ -1,4 +1,5 @@
-import type { CreateUserDto, UpdateUserDto, User } from '../entities/User'
+import type { CreateUserDto, UpdateUserDto } from '../dtos'
+import type { User } from '../entities/User'
 
 /**
  * Interfaz del repositorio de Users

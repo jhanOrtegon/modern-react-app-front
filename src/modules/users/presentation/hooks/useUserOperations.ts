@@ -10,18 +10,16 @@ import { toast } from 'sonner'
 import { useAuthStore } from '@/modules/auth/infrastructure/stores'
 
 import { usersContainer } from '../../di/UsersContainer'
+import { userQueryKeys } from '../query-keys/userQueryKeys'
 
-import type {
-  CreateUserDto,
-  UpdateUserDto,
-  User,
-} from '../../domain/entities/User'
+import type { CreateUserDto, UpdateUserDto } from '../../domain/dtos'
+import type { User } from '../../domain/entities/User'
 
 export function useUsers(): UseQueryResult<User[]> {
   const account = useAuthStore(state => state.account)
 
   return useQuery({
-    queryKey: ['users', account?.id, account],
+    queryKey: [...userQueryKeys.list(account?.id ?? 0), account],
     queryFn: async () => {
       // Obtener el use case en cada fetch para usar el repositorio actual
       const getUsersUseCase = usersContainer.getGetUsersUseCase()
@@ -40,7 +38,7 @@ export function useUsers(): UseQueryResult<User[]> {
 
 export function useUser(id: number | undefined): UseQueryResult<User | null> {
   return useQuery({
-    queryKey: ['user', id],
+    queryKey: userQueryKeys.detail(id ?? 0),
     queryFn: async () => {
       if (!id) {
         return null
@@ -71,7 +69,7 @@ export function useCreateUser(): UseMutationResult<User, Error, CreateUserDto> {
       })
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['users'] })
+      void queryClient.invalidateQueries({ queryKey: userQueryKeys.lists() })
       toast.success('User created successfully!')
     },
     onError: (error: Error) => {
@@ -98,8 +96,10 @@ export function useUpdateUser(): UseMutationResult<User, Error, UpdateUserDto> {
       })
     },
     onSuccess: (_, variables) => {
-      void queryClient.invalidateQueries({ queryKey: ['users'] })
-      void queryClient.invalidateQueries({ queryKey: ['user', variables.id] })
+      void queryClient.invalidateQueries({ queryKey: userQueryKeys.lists() })
+      void queryClient.invalidateQueries({
+        queryKey: userQueryKeys.detail(variables.id),
+      })
       toast.success('User updated successfully!')
     },
     onError: (error: Error) => {
@@ -118,7 +118,7 @@ export function useDeleteUser(): UseMutationResult<void, Error, number> {
       await deleteUserUseCase.execute(id)
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['users'] })
+      void queryClient.invalidateQueries({ queryKey: userQueryKeys.lists() })
       toast.success('User deleted successfully!')
     },
     onError: (error: Error) => {
@@ -141,7 +141,7 @@ export function useClearAllUsers(): UseMutationResult<void, Error, void> {
       await clearAllUsersUseCase.execute(account.id)
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['users'] })
+      void queryClient.invalidateQueries({ queryKey: userQueryKeys.lists() })
       toast.success('Todos los usuarios de esta cuenta han sido eliminados!')
     },
     onError: (error: Error) => {

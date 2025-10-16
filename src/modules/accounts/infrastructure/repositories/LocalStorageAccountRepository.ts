@@ -1,8 +1,5 @@
-import type {
-  Account,
-  CreateAccountDto,
-  UpdateAccountDto,
-} from '../../domain/entities/Account'
+import type { CreateAccountDto, UpdateAccountDto } from '../../domain/dtos'
+import type { Account } from '../../domain/entities/Account'
 import type { IAccountRepository } from '../../domain/repositories/IAccountRepository'
 
 const STORAGE_KEY = 'accounts_storage'

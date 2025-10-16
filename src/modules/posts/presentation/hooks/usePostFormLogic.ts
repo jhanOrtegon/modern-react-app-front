@@ -12,7 +12,7 @@ import {
   postUpdateSchema,
 } from '../../domain/schemas/postSchema'
 
-import type { CreatePostDto, UpdatePostDto } from '../../domain/entities/Post'
+import type { CreatePostDto, UpdatePostDto } from '../../domain/dtos'
 
 interface UsePostFormLogicReturn {
   form: UseFormReturn<PostFormData | PostUpdateFormData>

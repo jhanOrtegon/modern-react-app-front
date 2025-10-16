@@ -1,8 +1,5 @@
-import type {
-  CreatePostDto,
-  Post,
-  UpdatePostDto,
-} from '../../domain/entities/Post'
+import type { CreatePostDto, UpdatePostDto } from '../../domain/dtos'
+import type { Post } from '../../domain/entities/Post'
 import type { IPostRepository } from '../../domain/repositories/IPostRepository'
 
 const STORAGE_KEY = 'posts_storage'

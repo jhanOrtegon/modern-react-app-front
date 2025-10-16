@@ -1,8 +1,5 @@
-import type {
-  CreateUserDto,
-  UpdateUserDto,
-  User,
-} from '../../domain/entities/User'
+import type { CreateUserDto, UpdateUserDto } from '../../domain/dtos'
+import type { User } from '../../domain/entities/User'
 import type { IUserRepository } from '../../domain/repositories/IUserRepository'
 
 const STORAGE_KEY = 'users_storage'

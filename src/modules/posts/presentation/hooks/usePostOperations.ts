@@ -10,18 +10,16 @@ import { toast } from 'sonner'
 import { useAuthStore } from '@/modules/auth/infrastructure/stores'
 
 import { postsContainer } from '../../di/PostsContainer'
+import { postQueryKeys } from '../query-keys/postQueryKeys'
 
-import type {
-  CreatePostDto,
-  Post,
-  UpdatePostDto,
-} from '../../domain/entities/Post'
+import type { CreatePostDto, UpdatePostDto } from '../../domain/dtos'
+import type { Post } from '../../domain/entities/Post'
 
 export function usePosts(): UseQueryResult<Post[]> {
   const account = useAuthStore(state => state.account)
 
   return useQuery({
-    queryKey: ['posts', account?.id, account],
+    queryKey: [...postQueryKeys.list(account?.id ?? 0), account],
     queryFn: async () => {
       // Obtener el use case en cada fetch para usar el repositorio actual
       const getPostsUseCase = postsContainer.getGetPostsUseCase()
@@ -39,7 +37,7 @@ export function usePosts(): UseQueryResult<Post[]> {
 
 export function usePost(id: number | undefined): UseQueryResult<Post | null> {
   return useQuery({
-    queryKey: ['post', id],
+    queryKey: postQueryKeys.detail(id ?? 0),
     queryFn: async () => {
       if (!id) {
         return null
@@ -71,7 +69,7 @@ export function useCreatePost(): UseMutationResult<Post, Error, CreatePostDto> {
       })
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['posts'] })
+      void queryClient.invalidateQueries({ queryKey: postQueryKeys.lists() })
       toast.success('Post created successfully!')
     },
     onError: (error: Error) => {
@@ -99,8 +97,10 @@ export function useUpdatePost(): UseMutationResult<Post, Error, UpdatePostDto> {
       })
     },
     onSuccess: (_, variables) => {
-      void queryClient.invalidateQueries({ queryKey: ['posts'] })
-      void queryClient.invalidateQueries({ queryKey: ['post', variables.id] })
+      void queryClient.invalidateQueries({ queryKey: postQueryKeys.lists() })
+      void queryClient.invalidateQueries({
+        queryKey: postQueryKeys.detail(variables.id),
+      })
       toast.success('Post updated successfully!')
     },
     onError: (error: Error) => {
@@ -119,7 +119,7 @@ export function useDeletePost(): UseMutationResult<void, Error, number> {
       await deletePostUseCase.execute(id)
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['posts'] })
+      void queryClient.invalidateQueries({ queryKey: postQueryKeys.lists() })
       toast.success('Post deleted successfully!')
     },
     onError: (error: Error) => {
@@ -142,7 +142,7 @@ export function useClearAllPosts(): UseMutationResult<void, Error, void> {
       await clearAllPostsUseCase.execute(account.id)
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['posts'] })
+      void queryClient.invalidateQueries({ queryKey: postQueryKeys.lists() })
       toast.success('Todos los posts de esta cuenta han sido eliminados!')
     },
     onError: (error: Error) => {
