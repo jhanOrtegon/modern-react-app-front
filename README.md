@@ -42,6 +42,12 @@ Make sure you have Node.js 20+ and pnpm installed.
 # Install dependencies
 pnpm install
 
+# Copy environment template
+cp .env.example .env.local
+
+# Configure your environment variables
+# Edit .env.local with your settings
+
 # Start development server
 pnpm dev
 
@@ -51,6 +57,17 @@ pnpm build
 # Preview production build
 pnpm preview
 ```
+
+### 🔧 Environment Setup
+
+This project uses environment variables for configuration. See:
+
+- ⚡ **Quick Start**: [ENV_QUICK_START.md](./ENV_QUICK_START.md)
+- 📖 **Full Guide**: [ENV_GUIDE.md](./ENV_GUIDE.md)
+
+Required variables:
+
+- `VITE_API_BASE_URL` - API base URL (default: https://jsonplaceholder.typicode.com)
 
 ## 🧹 Code Quality
 

@@ -17,6 +17,7 @@ type LogStyles = Record<LogLevel, string>
  * - Logs con niveles (debug, info, warn, error)
  * - Contexto adicional opcional
  * - Solo muestra debug en desarrollo
+ * - Structured logging (JSON en producción)
  * - Preparado para integración con servicios externos (Sentry, LogRocket)
  *
  * @example
@@ -29,8 +30,7 @@ class Logger {
   private readonly isDevelopment: boolean
 
   constructor() {
-    // Vite uses import.meta.env.MODE
-    this.isDevelopment = true // Siempre true por ahora
+    this.isDevelopment = import.meta.env.DEV
   }
 
   private log(level: LogLevel, message: string, context?: LogContext): void {
@@ -38,6 +38,8 @@ class Logger {
     if (!this.isDevelopment && level === 'debug') {
       return
     }
+
+    const timestamp = new Date().toISOString()
 
     // En desarrollo: console con colores
     if (this.isDevelopment) {
@@ -50,19 +52,34 @@ class Logger {
 
       // eslint-disable-next-line no-console
       console.log(
-        `%c[${level.toUpperCase()}] ${message}`,
+        `%c[${level.toUpperCase()}] ${timestamp} ${message}`,
         styles[level],
         context ?? ''
       )
+    } else {
+      // En producción: structured logging (JSON)
+      const logEntry = {
+        level: level.toUpperCase(),
+        message,
+        timestamp,
+        ...context,
+      }
+
+      // Output como JSON string para parsear en servicios de logging
+      // eslint-disable-next-line no-console
+      console.log(JSON.stringify(logEntry))
     }
 
     // En producción: enviar a servicio de logging
     if (!this.isDevelopment && (level === 'error' || level === 'warn')) {
       // TODO: Integrar con Sentry, LogRocket, etc.
+      // Ejemplo con Sentry:
       // Sentry.captureMessage(message, {
       //   level: level as SeverityLevel,
-      //   extra: logData,
+      //   extra: context,
       // })
+      // Ejemplo con LogRocket:
+      // LogRocket.log(message, context)
     }
   }
 

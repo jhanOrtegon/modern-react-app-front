@@ -20,10 +20,11 @@ import type { Post } from '../entities/Post'
 export interface IPostRepository {
   /**
    * Obtiene todos los posts
+   * @param accountId - ID de la cuenta (opcional, para asignar a posts externos)
    * @returns Promise con array de posts
    * @throws {RepositoryError} Si falla la operación
    */
-  findAll: () => Promise<Post[]>
+  findAll: (accountId?: number) => Promise<Post[]>
 
   /**
    * Busca un post por su ID

@@ -7,17 +7,20 @@ import type { User } from '../../domain/entities/User'
 import type { IUserRepository } from '../../domain/repositories/IUserRepository'
 import type { UserAPIResponse } from '../types/UserAPITypes'
 
-export class JsonPlaceholderUserRepository implements IUserRepository {
-  private readonly baseUrl = 'https://jsonplaceholder.typicode.com'
+import { config } from '@/config'
 
-  findAll = async (): Promise<User[]> => {
+export class JsonPlaceholderUserRepository implements IUserRepository {
+  private readonly baseUrl = config.api.baseUrl
+
+  findAll = async (accountId?: number): Promise<User[]> => {
     try {
       const response = await fetch(`${this.baseUrl}/users`)
       if (!response.ok) {
         throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as UserAPIResponse[]
-      return UserAdapter.toDomainList(data)
+      // Pasar accountId al adapter para que los usuarios tengan el accountId correcto
+      return UserAdapter.toDomainList(data, accountId ?? 1)
     } catch (error) {
       if (error instanceof NetworkError) {
         throw error

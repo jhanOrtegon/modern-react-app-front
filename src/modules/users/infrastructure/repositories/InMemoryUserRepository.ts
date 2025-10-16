@@ -108,9 +108,10 @@ export class InMemoryUserRepository implements IUserRepository {
 
   private nextId = 6
 
-  findAll = async (): Promise<User[]> => {
+  findAll = async (_accountId?: number): Promise<User[]> => {
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 300))
+    // InMemory ya tiene accountId en cada user, no necesitamos el parámetro
     return [...this.users]
   }
 

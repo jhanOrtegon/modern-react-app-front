@@ -35,8 +35,9 @@ export class LocalStorageUserRepository implements IUserRepository {
     return Math.max(...users.map(u => u.id)) + 1
   }
 
-  findAll = async (): Promise<User[]> => {
+  findAll = async (_accountId?: number): Promise<User[]> => {
     // Simulate async operation
+    // LocalStorage ya tiene accountId en cada user, no necesitamos el parámetro
     return await Promise.resolve(this.getUsers())
   }
 

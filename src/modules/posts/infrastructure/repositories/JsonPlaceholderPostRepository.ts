@@ -7,17 +7,20 @@ import type { Post } from '../../domain/entities/Post'
 import type { IPostRepository } from '../../domain/repositories/IPostRepository'
 import type { PostAPIResponse } from '../types/PostAPITypes'
 
-export class JsonPlaceholderPostRepository implements IPostRepository {
-  private readonly baseUrl = 'https://jsonplaceholder.typicode.com'
+import { config } from '@/config'
 
-  findAll = async (): Promise<Post[]> => {
+export class JsonPlaceholderPostRepository implements IPostRepository {
+  private readonly baseUrl = config.api.baseUrl
+
+  findAll = async (accountId?: number): Promise<Post[]> => {
     try {
       const response = await fetch(`${this.baseUrl}/posts`)
       if (!response.ok) {
         throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as PostAPIResponse[]
-      return PostAdapter.toDomainList(data)
+      // Pasar accountId al adapter para que los posts tengan el accountId correcto
+      return PostAdapter.toDomainList(data, accountId ?? 1)
     } catch (error) {
       if (error instanceof NetworkError) {
         throw error

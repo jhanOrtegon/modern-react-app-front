@@ -78,9 +78,10 @@ export class InMemoryPostRepository implements IPostRepository {
 
   private nextId = 11
 
-  findAll = async (): Promise<Post[]> => {
+  findAll = async (_accountId?: number): Promise<Post[]> => {
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 300))
+    // InMemory ya tiene accountId en cada post, no necesitamos el parámetro
     return [...this.posts]
   }
 

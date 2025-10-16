@@ -20,10 +20,11 @@ import type { User } from '../entities/User'
 export interface IUserRepository {
   /**
    * Obtiene todos los usuarios
+   * @param accountId - ID de la cuenta (opcional, para asignar a usuarios externos)
    * @returns Promise con array de usuarios
    * @throws {RepositoryError} Si falla la operación
    */
-  findAll: () => Promise<User[]>
+  findAll: (accountId?: number) => Promise<User[]>
 
   /**
    * Busca un usuario por su ID

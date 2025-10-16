@@ -35,8 +35,9 @@ export class LocalStoragePostRepository implements IPostRepository {
     return Math.max(...posts.map(p => p.id)) + 1
   }
 
-  findAll = async (): Promise<Post[]> => {
+  findAll = async (_accountId?: number): Promise<Post[]> => {
     const allPosts = this.getPosts()
+    // LocalStorage ya tiene accountId en cada post, no necesitamos el parámetro
     return await Promise.resolve(allPosts)
   }
 
