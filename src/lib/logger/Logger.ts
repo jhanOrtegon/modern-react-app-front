@@ -27,7 +27,7 @@ class Logger {
     if (this.isDevelopment) {
       const styles: LogStyles = {
         debug: 'color: #888',
-        info: 'color: #00f',
+        info: 'color: #09f',
         warn: 'color: #f80',
         error: 'color: #f00; font-weight: bold',
       }

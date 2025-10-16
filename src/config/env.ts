@@ -52,20 +52,17 @@ export function getRequiredEnv(key: keyof ImportMetaEnv): string {
 }
 
 export const apiConfig = {
-  baseUrl: getEnvString(
-    'VITE_API_BASE_URL',
-    'https://jsonplaceholder.typicode.com'
-  ),
+  baseUrl: getEnvString('VITE_API_BASE_URL'),
 
-  timeout: getEnvNumber('VITE_API_TIMEOUT', 10000),
+  timeout: getEnvNumber('VITE_API_TIMEOUT'),
 } as const
 
 export const appConfig = {
-  name: getEnvString('VITE_APP_NAME', 'Modern React App'),
+  name: getEnvString('VITE_APP_NAME'),
 
-  version: getEnvString('VITE_APP_VERSION', '1.0.0'),
+  version: getEnvString('VITE_APP_VERSION'),
 
-  env: getEnvString('VITE_APP_ENV', 'development'),
+  env: getEnvString('VITE_APP_ENV'),
 
   isDevelopment: import.meta.env.DEV,
 
@@ -80,11 +77,10 @@ export const featureFlags = {
     appConfig.isDevelopment
   ),
 
-  enableDebugLogs: getEnvBoolean('VITE_ENABLE_DEBUG_LOGS', false),
+  enableDebugLogs: getEnvBoolean('VITE_ENABLE_DEBUG_LOGS'),
 
   enablePerformanceMonitoring: getEnvBoolean(
-    'VITE_ENABLE_PERFORMANCE_MONITORING',
-    false
+    'VITE_ENABLE_PERFORMANCE_MONITORING'
   ),
 } as const
 
@@ -95,13 +91,13 @@ export const analyticsConfig = {
 } as const
 
 export const uiConfig = {
-  itemsPerPage: getEnvNumber('VITE_ITEMS_PER_PAGE', 9),
+  itemsPerPage: getEnvNumber('VITE_ITEMS_PER_PAGE'),
 
-  searchDebounce: getEnvNumber('VITE_SEARCH_DEBOUNCE', 300),
+  searchDebounce: getEnvNumber('VITE_SEARCH_DEBOUNCE'),
 } as const
 
 export const authConfig = {
-  sessionTimeout: getEnvNumber('VITE_SESSION_TIMEOUT', 30),
+  sessionTimeout: getEnvNumber('VITE_SESSION_TIMEOUT'),
 
   oauthClientId: getEnvString('VITE_OAUTH_CLIENT_ID'),
 } as const
