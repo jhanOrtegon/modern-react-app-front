@@ -10,7 +10,7 @@ import { FadeIn } from '@/components/shared/FadeIn'
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
 import { Button } from '@/components/ui/button'
 
-import { useDeletePost, usePost } from '../hooks/usePostOperations'
+import { useDeletePost, usePost } from '../hooks'
 
 export function PostDetail(): ReactElement {
   const { id } = useParams<{ id: string }>()

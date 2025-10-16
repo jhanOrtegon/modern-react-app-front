@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 
 import { useAuthStore } from '@/modules/auth/infrastructure/stores'
 
-import { useClearAllPosts } from '../../modules/posts/presentation/hooks/usePostOperations'
+import { useClearAllPosts } from '../../modules/posts/presentation/hooks'
 import { useClearAllUsers } from '../../modules/users/presentation/hooks/useUserOperations'
 import { useRepositoryStore } from '../../stores/repositoryStore'
 import { RepositorySelector } from '../shared/RepositorySelector'

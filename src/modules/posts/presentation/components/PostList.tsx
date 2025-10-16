@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/popover'
 
 import { config } from '../../../../config'
-import { useClearAllPosts, usePosts } from '../hooks/usePostOperations'
+import { useClearAllPosts, usePosts } from '../hooks'
 
 const ITEMS_PER_PAGE = config.ui.itemsPerPage
 
