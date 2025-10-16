@@ -1,8 +1,5 @@
 import { z } from 'zod'
 
-/**
- * Schema de validación para crear una cuenta
- */
 export const accountSchema = z.object({
   name: z
     .string()
@@ -17,15 +14,9 @@ export const accountSchema = z.object({
     }),
 })
 
-/**
- * Schema de validación para actualizar una cuenta
- */
 export const accountUpdateSchema = accountSchema.extend({
   id: z.number().int().positive('El ID debe ser un número positivo'),
 })
 
-/**
- * Tipos inferidos de los schemas
- */
 export type AccountFormData = z.infer<typeof accountSchema>
 export type AccountUpdateFormData = z.infer<typeof accountUpdateSchema>

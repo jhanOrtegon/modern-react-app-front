@@ -19,7 +19,7 @@ export class JsonPlaceholderUserRepository implements IUserRepository {
         throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as UserAPIResponse[]
-      // Pasar accountId al adapter para que los usuarios tengan el accountId correcto
+
       return UserAdapter.toDomainList(data, accountId ?? 1)
     } catch (error) {
       if (error instanceof NetworkError) {
@@ -70,7 +70,7 @@ export class JsonPlaceholderUserRepository implements IUserRepository {
         throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as UserAPIResponse
-      // JSONPlaceholder doesn't return full user object on create, so we need to create a mock one
+
       return {
         ...UserAdapter.toDomain(data),
         address: {

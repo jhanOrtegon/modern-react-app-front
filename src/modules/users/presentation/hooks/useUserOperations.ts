@@ -21,12 +21,10 @@ export function useUsers(): UseQueryResult<User[]> {
   return useQuery({
     queryKey: [...userQueryKeys.list(account?.id ?? 0), account],
     queryFn: async () => {
-      // Obtener el use case en cada fetch para usar el repositorio actual
       const getUsersUseCase = usersContainer.getGetUsersUseCase()
-      // Pasar accountId al use case para que el adapter lo use
+
       const allUsers = await getUsersUseCase.execute(account?.id)
 
-      // Filtrar por cuenta actual
       if (account) {
         return allUsers.filter(user => user.accountId === account.id)
       }
@@ -44,7 +42,7 @@ export function useUser(id: number | undefined): UseQueryResult<User | null> {
       if (!id) {
         return null
       }
-      // Obtener el use case en cada fetch para usar el repositorio actual
+
       const getUserUseCase = usersContainer.getGetUserUseCase()
       return await getUserUseCase.execute(id)
     },
@@ -62,32 +60,28 @@ export function useCreateUser(): UseMutationResult<User, Error, CreateUserDto> {
         throw new Error('Debes iniciar sesión para crear un usuario')
       }
 
-      // Obtener el use case en cada mutación para usar el repositorio actual
       const createUserUseCase = usersContainer.getCreateUserUseCase()
       return await createUserUseCase.execute({
         ...user,
         accountId: account.id,
       })
     },
-    // ✨ OPTIMISTIC UPDATE
+
     onMutate: async (newUser: CreateUserDto) => {
       if (!account) {
         return
       }
 
-      // 1. Cancelar queries en progreso para evitar race conditions
       const queryKey = [...userQueryKeys.list(account.id), account]
       await queryClient.cancelQueries({ queryKey })
 
-      // 2. Snapshot del estado actual (para rollback)
       const previousUsers = queryClient.getQueryData<User[]>(queryKey)
 
-      // 3. Optimistically update UI con ID temporal
       queryClient.setQueryData<User[]>(queryKey, old => [
         ...(old ?? []),
         {
           ...newUser,
-          id: Date.now(), // ID temporal
+          id: Date.now(),
           accountId: account.id,
           phone: newUser.phone,
           website: newUser.website,
@@ -105,7 +99,6 @@ export function useCreateUser(): UseMutationResult<User, Error, CreateUserDto> {
         },
       ])
 
-      // 4. Retornar contexto para rollback
       return { previousUsers, queryKey }
     },
     onSuccess: () => {
@@ -113,14 +106,12 @@ export function useCreateUser(): UseMutationResult<User, Error, CreateUserDto> {
       toast.success('User created successfully!')
     },
     onError: (error: Error, _, context) => {
-      // Rollback en caso de error
       if (context?.previousUsers) {
         queryClient.setQueryData(context.queryKey, context.previousUsers)
       }
       toast.error(`Failed to create user: ${error.message}`)
     },
     onSettled: () => {
-      // Refetch para sincronizar con servidor (con el ID real)
       void queryClient.invalidateQueries({ queryKey: userQueryKeys.lists() })
     },
   })
@@ -136,31 +127,27 @@ export function useUpdateUser(): UseMutationResult<User, Error, UpdateUserDto> {
         throw new Error('Debes iniciar sesión para actualizar un usuario')
       }
 
-      // Obtener el use case en cada mutación para usar el repositorio actual
       const updateUserUseCase = usersContainer.getUpdateUserUseCase()
       return await updateUserUseCase.execute({
         ...user,
         accountId: account.id,
       })
     },
-    // ✨ OPTIMISTIC UPDATE
+
     onMutate: async (updatedUser: UpdateUserDto) => {
       if (!account) {
         return
       }
 
-      // 1. Cancelar queries
       const listQueryKey = [...userQueryKeys.list(account.id), account]
       const detailQueryKey = userQueryKeys.detail(updatedUser.id)
 
       await queryClient.cancelQueries({ queryKey: listQueryKey })
       await queryClient.cancelQueries({ queryKey: detailQueryKey })
 
-      // 2. Snapshot
       const previousUsersList = queryClient.getQueryData<User[]>(listQueryKey)
       const previousUser = queryClient.getQueryData<User>(detailQueryKey)
 
-      // 3. Optimistic update
       queryClient.setQueryData<User[]>(listQueryKey, old =>
         old?.map(user =>
           user.id === updatedUser.id
@@ -173,7 +160,6 @@ export function useUpdateUser(): UseMutationResult<User, Error, UpdateUserDto> {
         old ? { ...old, ...updatedUser, accountId: account.id } : old
       )
 
-      // 4. Retornar contexto
       return { previousUsersList, previousUser, listQueryKey, detailQueryKey }
     },
     onSuccess: (_, variables) => {
@@ -184,7 +170,6 @@ export function useUpdateUser(): UseMutationResult<User, Error, UpdateUserDto> {
       toast.success('User updated successfully!')
     },
     onError: (error: Error, _, context) => {
-      // Rollback
       if (context?.previousUsersList) {
         queryClient.setQueryData(
           context.listQueryKey,
@@ -211,29 +196,24 @@ export function useDeleteUser(): UseMutationResult<void, Error, number> {
 
   return useMutation({
     mutationFn: async (id: number) => {
-      // Obtener el use case en cada mutación para usar el repositorio actual
       const deleteUserUseCase = usersContainer.getDeleteUserUseCase()
       await deleteUserUseCase.execute(id)
     },
-    // ✨ OPTIMISTIC UPDATE
+
     onMutate: async (deletedId: number) => {
       if (!account) {
         return
       }
 
-      // 1. Cancelar queries
       const queryKey = [...userQueryKeys.list(account.id), account]
       await queryClient.cancelQueries({ queryKey })
 
-      // 2. Snapshot
       const previousUsers = queryClient.getQueryData<User[]>(queryKey)
 
-      // 3. Optimistic delete (remover de la UI inmediatamente)
       queryClient.setQueryData<User[]>(queryKey, old =>
         old?.filter(user => user.id !== deletedId)
       )
 
-      // 4. Retornar contexto
       return { previousUsers, queryKey }
     },
     onSuccess: () => {
@@ -241,7 +221,6 @@ export function useDeleteUser(): UseMutationResult<void, Error, number> {
       toast.success('User deleted successfully!')
     },
     onError: (error: Error, _, context) => {
-      // Rollback
       if (context?.previousUsers) {
         queryClient.setQueryData(context.queryKey, context.previousUsers)
       }

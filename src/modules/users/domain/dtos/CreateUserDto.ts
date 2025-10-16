@@ -1,11 +1,3 @@
-/**
- * DTO (Data Transfer Object) para crear un User
- *
- * Se utiliza en:
- * - CreateUserUseCase
- * - UserValidator
- * - UserRepository.create()
- */
 export interface CreateUserDto {
   name: string
   username: string

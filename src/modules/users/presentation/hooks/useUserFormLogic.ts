@@ -27,14 +27,11 @@ export function useUserFormLogic(userId?: number): UseUserFormLogicReturn {
   const navigate = useNavigate()
   const isEditing = Boolean(userId)
 
-  // Fetch existing user if editing
   const { data: existingUser, isLoading: isLoadingUser } = useUser(userId)
 
-  // Mutations
   const createUser = useCreateUser()
   const updateUser = useUpdateUser()
 
-  // Setup form with proper schema based on mode
   const form = useForm<UserFormData | UserUpdateFormData>({
     resolver: zodResolver(isEditing ? userUpdateSchema : userSchema),
     defaultValues: {
@@ -48,7 +45,6 @@ export function useUserFormLogic(userId?: number): UseUserFormLogicReturn {
     },
   })
 
-  // Load existing data when available
   useEffect(() => {
     if (existingUser && isEditing) {
       form.reset({
@@ -63,10 +59,8 @@ export function useUserFormLogic(userId?: number): UseUserFormLogicReturn {
     }
   }, [existingUser, isEditing, form, userId])
 
-  // Handle form submission
   const onSubmit = (data: UserFormData | UserUpdateFormData): void => {
     if (isEditing && userId && 'id' in data) {
-      // El accountId se agrega automáticamente en useUpdateUser
       updateUser.mutate(data as UpdateUserDto, {
         onSuccess: () => {
           navigate(`/users/${userId}`)
@@ -78,7 +72,6 @@ export function useUserFormLogic(userId?: number): UseUserFormLogicReturn {
         },
       })
     } else {
-      // El accountId se agrega automáticamente en useCreateUser
       createUser.mutate(data as CreateUserDto, {
         onSuccess: newUser => {
           navigate(`/users/${newUser.id}`)

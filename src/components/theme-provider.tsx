@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import {
   createContext,
   type ReactElement,
@@ -69,14 +70,7 @@ export function ThemeProvider({
   )
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = (): ThemeProviderState => {
   const context = useContext(ThemeProviderContext)
-
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider')
-  }
-
   return context
 }

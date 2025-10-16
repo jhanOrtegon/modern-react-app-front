@@ -1,7 +1,3 @@
-/**
- * Error base del dominio
- * Todos los errores de la aplicación deberían extender de esta clase
- */
 export class DomainError extends Error {
   constructor(
     message: string,
@@ -14,9 +10,6 @@ export class DomainError extends Error {
   }
 }
 
-/**
- * Error cuando un recurso no es encontrado
- */
 export class NotFoundError extends DomainError {
   constructor(resource: string, id: string | number) {
     super(`${resource} con id ${id} no encontrado`, 'NOT_FOUND', 404)
@@ -25,9 +18,6 @@ export class NotFoundError extends DomainError {
   }
 }
 
-/**
- * Error de validación de datos
- */
 export class ValidationError extends DomainError {
   constructor(
     message: string,
@@ -39,9 +29,6 @@ export class ValidationError extends DomainError {
   }
 }
 
-/**
- * Error de autenticación/autorización
- */
 export class UnauthorizedError extends DomainError {
   constructor(message = 'No autorizado') {
     super(message, 'UNAUTHORIZED', 401)
@@ -50,9 +37,6 @@ export class UnauthorizedError extends DomainError {
   }
 }
 
-/**
- * Error de red/conectividad
- */
 export class NetworkError extends DomainError {
   constructor(message = 'Error de conexión. Verifica tu internet.') {
     super(message, 'NETWORK_ERROR', 503)
@@ -61,9 +45,6 @@ export class NetworkError extends DomainError {
   }
 }
 
-/**
- * Error en operaciones de repositorio
- */
 export class RepositoryError extends DomainError {
   constructor(message: string, operation: string) {
     super(`Error en ${operation}: ${message}`, 'REPOSITORY_ERROR', 500)

@@ -10,22 +10,6 @@ interface LogContext {
 
 type LogStyles = Record<LogLevel, string>
 
-/**
- * Logger centralizado para la aplicación
- *
- * Características:
- * - Logs con niveles (debug, info, warn, error)
- * - Contexto adicional opcional
- * - Solo muestra debug en desarrollo
- * - Structured logging (JSON en producción)
- * - Preparado para integración con servicios externos (Sentry, LogRocket)
- *
- * @example
- * ```typescript
- * logger.info('Usuario creado', { module: 'users', userId: 123 })
- * logger.error('Error al crear post', error, { module: 'posts' })
- * ```
- */
 class Logger {
   private readonly isDevelopment: boolean
 
@@ -34,14 +18,12 @@ class Logger {
   }
 
   private log(level: LogLevel, message: string, context?: LogContext): void {
-    // En desarrollo, no mostrar debug en algunos casos
     if (!this.isDevelopment && level === 'debug') {
       return
     }
 
     const timestamp = new Date().toISOString()
 
-    // En desarrollo: console con colores
     if (this.isDevelopment) {
       const styles: LogStyles = {
         debug: 'color: #888',
@@ -50,14 +32,14 @@ class Logger {
         error: 'color: #f00; font-weight: bold',
       }
 
-      // eslint-disable-next-line no-console
+      /* eslint-disable no-console */
       console.log(
         `%c[${level.toUpperCase()}] ${timestamp} ${message}`,
         styles[level],
         context ?? ''
       )
+      /* eslint-enable no-console */
     } else {
-      // En producción: structured logging (JSON)
       const logEntry = {
         level: level.toUpperCase(),
         message,
@@ -65,48 +47,24 @@ class Logger {
         ...context,
       }
 
-      // Output como JSON string para parsear en servicios de logging
-      // eslint-disable-next-line no-console
+      /* eslint-disable no-console */
       console.log(JSON.stringify(logEntry))
-    }
-
-    // En producción: enviar a servicio de logging
-    if (!this.isDevelopment && (level === 'error' || level === 'warn')) {
-      // TODO: Integrar con Sentry, LogRocket, etc.
-      // Ejemplo con Sentry:
-      // Sentry.captureMessage(message, {
-      //   level: level as SeverityLevel,
-      //   extra: context,
-      // })
-      // Ejemplo con LogRocket:
-      // LogRocket.log(message, context)
+      /* eslint-enable no-console */
     }
   }
 
-  /**
-   * Log de debug (solo en desarrollo)
-   */
   debug(message: string, context?: LogContext): void {
     this.log('debug', message, context)
   }
 
-  /**
-   * Log informativo
-   */
   info(message: string, context?: LogContext): void {
     this.log('info', message, context)
   }
 
-  /**
-   * Log de advertencia
-   */
   warn(message: string, context?: LogContext): void {
     this.log('warn', message, context)
   }
 
-  /**
-   * Log de error
-   */
   error(message: string, error?: Error, context?: LogContext): void {
     const errorContext = {
       ...context,
@@ -117,7 +75,4 @@ class Logger {
   }
 }
 
-/**
- * Instancia global del logger
- */
 export const logger = new Logger()

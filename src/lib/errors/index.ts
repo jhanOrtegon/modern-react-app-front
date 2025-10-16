@@ -1,6 +1,3 @@
-/**
- * Barrel export para el sistema de errores
- */
 export {
   DomainError,
   NotFoundError,

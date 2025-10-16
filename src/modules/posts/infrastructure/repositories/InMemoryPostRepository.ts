@@ -7,7 +7,7 @@ export class InMemoryPostRepository implements IPostRepository {
     {
       id: 1,
       userId: 1,
-      accountId: 1, // Cuenta demo
+      accountId: 1,
       title: 'Getting Started with React and TypeScript',
       body: 'React with TypeScript provides excellent type safety and developer experience. In this post, we explore best practices for building scalable React applications with TypeScript, including proper typing of components, hooks, and props.',
     },
@@ -79,21 +79,18 @@ export class InMemoryPostRepository implements IPostRepository {
   private nextId = 11
 
   findAll = async (_accountId?: number): Promise<Post[]> => {
-    // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 300))
-    // InMemory ya tiene accountId en cada post, no necesitamos el parámetro
+
     return [...this.posts]
   }
 
   findById = async (id: number): Promise<Post | null> => {
-    // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 200))
     const post = this.posts.find(p => p.id === id)
     return post ?? null
   }
 
   create = async (postDto: CreatePostDto): Promise<Post> => {
-    // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 400))
 
     const newPost: Post = {
@@ -106,7 +103,6 @@ export class InMemoryPostRepository implements IPostRepository {
   }
 
   update = async (postDto: UpdatePostDto): Promise<Post> => {
-    // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 400))
 
     const index = this.posts.findIndex(p => p.id === postDto.id)
@@ -133,7 +129,6 @@ export class InMemoryPostRepository implements IPostRepository {
   }
 
   delete = async (id: number): Promise<void> => {
-    // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 300))
 
     const initialLength = this.posts.length

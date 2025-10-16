@@ -38,15 +38,17 @@ A modern React application built with the latest technologies, best practices, a
 
 Make sure you have Node.js 20+ and pnpm installed.
 
+### Option 1: Local Development
+
 ```bash
 # Install dependencies
 pnpm install
 
 # Copy environment template
-cp .env.example .env.local
+cp .env.example .env.development.local
 
 # Configure your environment variables
-# Edit .env.local with your settings
+# Edit .env.development.local with your settings
 
 # Start development server
 pnpm dev
@@ -58,12 +60,27 @@ pnpm build
 pnpm preview
 ```
 
+### Option 2: Docker Development
+
+For containerized development and production deployment, see [Docker Documentation](./README.Docker.md).
+
+```bash
+# Development with hot reload
+make dev
+
+# Production build
+make prod
+
+# View logs
+make logs
+```
+
 ### 🔧 Environment Setup
 
-This project uses environment variables for configuration. See:
+The project uses two environment files:
 
-- ⚡ **Quick Start**: [ENV_QUICK_START.md](./ENV_QUICK_START.md)
-- 📖 **Full Guide**: [ENV_GUIDE.md](./ENV_GUIDE.md)
+- `.env.development.local` - Local development configuration (not committed)
+- `.env.example` - Template with all available variables
 
 Required variables:
 

@@ -24,7 +24,7 @@ export function AccountForm(): ReactElement {
   return (
     <FadeIn>
       <div className="mx-auto max-w-2xl space-y-6">
-        {/* Header */}
+        {}
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold">
@@ -44,14 +44,14 @@ export function AccountForm(): ReactElement {
           </Button>
         </div>
 
-        {/* Form */}
+        {}
         <form
           className="space-y-6 rounded-lg border bg-card p-6"
           onSubmit={e => {
             void form.handleSubmit(onSubmit)(e)
           }}
         >
-          {/* Name Field */}
+          {}
           <FormField
             required
             error={form.formState.errors.name?.message}
@@ -71,7 +71,7 @@ export function AccountForm(): ReactElement {
             />
           </FormField>
 
-          {/* Email Field */}
+          {}
           <FormField
             required
             error={form.formState.errors.email?.message}
@@ -91,14 +91,14 @@ export function AccountForm(): ReactElement {
             />
           </FormField>
 
-          {/* Form Error */}
+          {}
           {form.formState.errors.root ? (
             <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
               {form.formState.errors.root.message}
             </div>
           ) : null}
 
-          {/* Submit Button */}
+          {}
           <div className="flex justify-end gap-3">
             <Button asChild type="button" variant="outline">
               <Link to={backLink}>Cancelar</Link>

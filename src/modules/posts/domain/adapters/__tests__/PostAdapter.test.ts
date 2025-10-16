@@ -49,7 +49,7 @@ describe('PostAdapter', () => {
       const result = PostAdapter.toDomain(apiResponse)
 
       expect(result.id).toBe(0)
-      expect(result.userId).toBe(1) // Default es 1, no 0
+      expect(result.userId).toBe(1)
       expect(result.title).toBe('Untitled Post')
       expect(result.body).toBe('')
     })
@@ -62,7 +62,7 @@ describe('PostAdapter', () => {
       expect(result).toMatchObject({
         id: 0,
         accountId: 1,
-        userId: 1, // Default es 1, no 0
+        userId: 1,
         title: 'Untitled Post',
         body: '',
       })

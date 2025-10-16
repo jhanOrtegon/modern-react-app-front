@@ -20,17 +20,14 @@ export function AppLayout(): ReactElement {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
-  // Auth store
   const account = useAuthStore(state => state.account)
   const logout = useAuthStore(state => state.logout)
 
-  // Usar Zustand store para el estado de visibilidad del selector
   const isSelectorVisible = useRepositoryStore(state => state.isSelectorVisible)
   const toggleSelectorVisibility = useRepositoryStore(
     state => state.toggleSelectorVisibility
   )
 
-  // Mutations para limpiar datos
   const clearAllPostsMutation = useClearAllPosts()
   const clearAllUsersMutation = useClearAllUsers()
 
@@ -46,12 +43,10 @@ export function AppLayout(): ReactElement {
     return location.pathname.startsWith(path)
   }
 
-  // Verificar si estamos en una ruta de listado (no detalle ni formulario)
   const isListRoute = (): boolean => {
     return location.pathname === '/posts' || location.pathname === '/users'
   }
 
-  // Determinar el tipo de ruta actual
   const getCurrentModule = ():
     | { type: 'posts'; label: string; createPath: string }
     | { type: 'users'; label: string; createPath: string }
@@ -87,7 +82,7 @@ export function AppLayout(): ReactElement {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
+      {}
       <header className="sticky top-0 z-50 border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-6">
@@ -95,7 +90,7 @@ export function AppLayout(): ReactElement {
               <h1 className="text-xl font-bold">Modern App</h1>
             </Link>
 
-            {/* Desktop Navigation */}
+            {}
             <nav className="hidden items-center gap-6 md:flex">
               <Link
                 className={`text-sm font-medium transition-colors hover:text-primary ${
@@ -127,13 +122,13 @@ export function AppLayout(): ReactElement {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* User Info */}
+            {}
             <div className="hidden items-center gap-2 rounded-md border bg-muted/50 px-3 py-1.5 md:flex">
               <User className="size-4 text-muted-foreground" />
               <span className="text-sm font-medium">{account?.name}</span>
             </div>
 
-            {/* Repository Selector Toggle - Solo visible en rutas de listado */}
+            {}
             {showRepositorySelector ? (
               <Button
                 size="icon"
@@ -147,7 +142,7 @@ export function AppLayout(): ReactElement {
 
             <ThemeToggle />
 
-            {/* Logout Button */}
+            {}
             <Button
               size="icon"
               title="Cerrar Sesión"
@@ -157,7 +152,7 @@ export function AppLayout(): ReactElement {
               <LogOut className="size-5" />
             </Button>
 
-            {/* Mobile Menu Button */}
+            {}
             <button
               className="md:hidden"
               type="button"
@@ -170,7 +165,7 @@ export function AppLayout(): ReactElement {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {}
         {isMenuOpen ? (
           <nav className="border-t bg-card p-4 md:hidden">
             <div className="flex flex-col gap-4">
@@ -214,20 +209,20 @@ export function AppLayout(): ReactElement {
         ) : null}
       </header>
 
-      {/* Main Content */}
+      {}
       <main className="container mx-auto max-w-7xl px-4 py-8">
         <div
           className={`grid gap-6 ${showRepositorySelector ? 'lg:grid-cols-[1fr_350px]' : ''}`}
         >
-          {/* Main Content Area */}
+          {}
           <div className="min-h-0">
             <Outlet />
           </div>
 
-          {/* Repository Selector Sidebar - Solo en rutas de listado */}
+          {}
           {isSelectorVisible && showRepositorySelector ? (
             <div className="lg:sticky lg:top-[10.4rem] lg:self-start">
-              {/* Diálogo de confirmación */}
+              {}
               {showConfirmDialog ? (
                 <div className="mb-4 rounded-lg border border-destructive/50 bg-destructive/10 p-4">
                   <h3 className="mb-2 font-semibold text-destructive">
@@ -264,7 +259,7 @@ export function AppLayout(): ReactElement {
                 </div>
               ) : null}
 
-              {/* Repository Selector */}
+              {}
               <div className="pr-2">
                 <RepositorySelector />
               </div>

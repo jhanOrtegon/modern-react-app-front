@@ -37,9 +37,7 @@ export function usePostDetailLogic(postId?: number): UsePostDetailLogicReturn {
       },
       cancel: {
         label: 'Cancel',
-        onClick: () => {
-          // Cancel action
-        },
+        onClick: () => undefined,
       },
     })
   }

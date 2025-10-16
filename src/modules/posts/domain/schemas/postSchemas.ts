@@ -1,9 +1,5 @@
 import { z } from 'zod'
 
-/**
- * Schema de validación para crear un Post
- * Auto-genera el tipo CreatePostDto con z.infer<>
- */
 export const createPostSchema = z.object({
   accountId: z
     .number({ message: 'Account ID must be a number' })
@@ -28,10 +24,6 @@ export const createPostSchema = z.object({
     .trim(),
 })
 
-/**
- * Schema de validación para actualizar un Post
- * Extiende createPostSchema y agrega id
- */
 export const updatePostSchema = createPostSchema.extend({
   id: z
     .number({ message: 'ID must be a number' })
@@ -39,13 +31,6 @@ export const updatePostSchema = createPostSchema.extend({
     .positive('ID must be positive'),
 })
 
-/**
- * Tipo CreatePostDto auto-generado desde schema
- * Esto garantiza que el DTO y la validación siempre están sincronizados
- */
 export type CreatePostDto = z.infer<typeof createPostSchema>
 
-/**
- * Tipo UpdatePostDto auto-generado desde schema
- */
 export type UpdatePostDto = z.infer<typeof updatePostSchema>

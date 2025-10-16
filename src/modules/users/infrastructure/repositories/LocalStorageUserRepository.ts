@@ -36,8 +36,6 @@ export class LocalStorageUserRepository implements IUserRepository {
   }
 
   findAll = async (_accountId?: number): Promise<User[]> => {
-    // Simulate async operation
-    // LocalStorage ya tiene accountId en cada user, no necesitamos el parámetro
     return await Promise.resolve(this.getUsers())
   }
 
@@ -115,7 +113,7 @@ export class LocalStorageUserRepository implements IUserRepository {
   clearAll = async (accountId: number): Promise<void> => {
     try {
       const users = this.getUsers()
-      // Filtrar y mantener solo los usuarios que NO pertenecen a la cuenta especificada
+
       const filteredUsers = users.filter(u => u.accountId !== accountId)
       this.saveUsers(filteredUsers)
       await Promise.resolve()

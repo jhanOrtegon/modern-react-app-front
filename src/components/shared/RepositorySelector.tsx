@@ -44,7 +44,6 @@ const repositoryOptions: RepositoryOption[] = [
 export function RepositorySelector(): ReactElement {
   const queryClient = useQueryClient()
 
-  // Usar Zustand store en lugar de useState local
   const userRepoType = useRepositoryStore(state => state.userRepositoryType)
   const postRepoType = useRepositoryStore(state => state.postRepositoryType)
   const setUserRepositoryType = useRepositoryStore(
@@ -54,7 +53,6 @@ export function RepositorySelector(): ReactElement {
     state => state.setPostRepositoryType
   )
 
-  // Sincronizar los containers con el estado de Zustand al montar
   useEffect(() => {
     usersContainer.setRepositoryType(userRepoType)
     postsContainer.setRepositoryType(postRepoType)
@@ -63,17 +61,13 @@ export function RepositorySelector(): ReactElement {
   const handleUserRepoChange = async (
     type: UserRepositoryType
   ): Promise<void> => {
-    // 1. Actualizar el store de Zustand (esto persistirá automáticamente)
     setUserRepositoryType(type)
 
-    // 2. Cambiar el tipo de repositorio en el container
     usersContainer.setRepositoryType(type)
 
-    // 3. Cancelar todas las queries en progreso
     await queryClient.cancelQueries({ queryKey: ['users'] })
     await queryClient.cancelQueries({ queryKey: ['user'] })
 
-    // 4. RESETEAR completamente las queries (esto las marca como "nunca fetched")
     await queryClient.resetQueries({ queryKey: ['users'] })
     await queryClient.resetQueries({ queryKey: ['user'] })
 
@@ -86,17 +80,13 @@ export function RepositorySelector(): ReactElement {
   const handlePostRepoChange = async (
     type: PostRepositoryType
   ): Promise<void> => {
-    // 1. Actualizar el store de Zustand (esto persistirá automáticamente)
     setPostRepositoryType(type)
 
-    // 2. Cambiar el tipo de repositorio en el container
     postsContainer.setRepositoryType(type)
 
-    // 3. Cancelar todas las queries en progreso
     await queryClient.cancelQueries({ queryKey: ['posts'] })
     await queryClient.cancelQueries({ queryKey: ['post'] })
 
-    // 4. RESETEAR completamente las queries (esto las marca como "nunca fetched")
     await queryClient.resetQueries({ queryKey: ['posts'] })
     await queryClient.resetQueries({ queryKey: ['post'] })
 
@@ -115,7 +105,7 @@ export function RepositorySelector(): ReactElement {
         </p>
       </div>
 
-      {/* Users Repository Selector */}
+      {}
       <div className="space-y-3">
         <div className="text-sm font-medium">Users Repository</div>
         <div className="grid gap-2">
@@ -140,7 +130,7 @@ export function RepositorySelector(): ReactElement {
         </div>
       </div>
 
-      {/* Posts Repository Selector */}
+      {}
       <div className="space-y-3">
         <div className="text-sm font-medium">Posts Repository</div>
         <div className="grid gap-2">
@@ -165,7 +155,7 @@ export function RepositorySelector(): ReactElement {
         </div>
       </div>
 
-      {/* Info Section */}
+      {}
       <div className="rounded-md border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950/30">
         <p className="text-xs text-blue-900 dark:text-blue-100">
           <strong>Note:</strong> Changing repositories will invalidate the cache

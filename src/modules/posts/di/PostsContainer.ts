@@ -10,7 +10,6 @@ import { LocalStoragePostRepository } from '../infrastructure/repositories/Local
 
 import type { IPostRepository } from '../domain/repositories/IPostRepository'
 
-// Tipos de repositorio disponibles
 export type PostRepositoryType = 'jsonplaceholder' | 'localStorage' | 'inMemory'
 
 class PostsContainer {
@@ -21,16 +20,12 @@ class PostsContainer {
   private updatePostUseCase: UpdatePostUseCase | null = null
   private deletePostUseCase: DeletePostUseCase | null = null
   private clearAllPostsUseCase: ClearAllPostsUseCase | null = null
-  private repositoryType: PostRepositoryType = 'jsonplaceholder' // Por defecto JSONPlaceholder
+  private repositoryType: PostRepositoryType = 'jsonplaceholder'
 
-  /**
-   * Cambia el tipo de repositorio y resetea todas las instancias
-   * @param type - El tipo de repositorio a usar
-   */
   setRepositoryType(type: PostRepositoryType): void {
     if (this.repositoryType !== type) {
       this.repositoryType = type
-      // Resetear todas las instancias para que usen el nuevo repositorio
+
       this.postRepository = null
       this.getPostsUseCase = null
       this.getPostUseCase = null
@@ -41,9 +36,6 @@ class PostsContainer {
     }
   }
 
-  /**
-   * Obtiene el tipo de repositorio actual
-   */
   getRepositoryType(): PostRepositoryType {
     return this.repositoryType
   }

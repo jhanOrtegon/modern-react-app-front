@@ -1,8 +1,5 @@
 import type { IUserRepository } from '../../domain/repositories/IUserRepository'
 
-/**
- * Use Case para limpiar todos los usuarios del almacenamiento de una cuenta específica
- */
 export class ClearAllUsersUseCase {
   constructor(private readonly userRepository: IUserRepository) {}
 

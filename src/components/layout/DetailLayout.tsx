@@ -23,7 +23,7 @@ export function DetailLayout({
   return (
     <SlideIn direction="right">
       <div className="space-y-6">
-        {/* Navigation Bar */}
+        {}
         <motion.div
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center justify-between"
@@ -48,7 +48,7 @@ export function DetailLayout({
           ) : null}
         </motion.div>
 
-        {/* Content Card */}
+        {}
         <motion.div
           animate={{ opacity: 1, y: 0, scale: 1 }}
           className="rounded-lg border bg-card p-8"

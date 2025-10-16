@@ -25,7 +25,7 @@ export function ModuleLayout({
   return (
     <PageTransition>
       <div className="space-y-6">
-        {/* Header */}
+        {}
         <motion.div
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
@@ -57,7 +57,7 @@ export function ModuleLayout({
           ) : null}
         </motion.div>
 
-        {/* Content */}
+        {}
         <motion.div
           animate={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: 20 }}

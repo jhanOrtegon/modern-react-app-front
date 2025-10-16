@@ -4,9 +4,6 @@ import { LocalStorageAuthRepository } from '../infrastructure/repositories/Local
 
 import type { IAuthRepository } from '../domain/repositories/IAuthRepository'
 
-/**
- * Contenedor de inyección de dependencias para el módulo de autenticación
- */
 class AuthContainer {
   private authRepository: IAuthRepository | null = null
   private registerUseCase: RegisterUseCase | null = null

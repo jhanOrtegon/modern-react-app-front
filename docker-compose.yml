@@ -1,0 +1,25 @@
+services:
+  modern-react-app:
+    container_name: modern-react-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - '5173:5173'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env.development.local
+    command: pnpm dev --host
+    stdin_open: true
+    tty: true
+    networks:
+      - modern-react-network
+
+networks:
+  modern-react-network:
+    driver: bridge

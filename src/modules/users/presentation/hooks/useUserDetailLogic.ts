@@ -37,9 +37,7 @@ export function useUserDetailLogic(userId?: number): UseUserDetailLogicReturn {
       },
       cancel: {
         label: 'Cancel',
-        onClick: () => {
-          // Cancel action
-        },
+        onClick: () => undefined,
       },
     })
   }

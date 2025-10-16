@@ -2,9 +2,6 @@ import type { CreateAccountDto } from '../../domain/dtos'
 import type { Account } from '../../domain/entities/Account'
 import type { IAccountRepository } from '../../domain/repositories/IAccountRepository'
 
-/**
- * Use Case para crear una nueva cuenta
- */
 export class CreateAccountUseCase {
   constructor(private readonly accountRepository: IAccountRepository) {}
 

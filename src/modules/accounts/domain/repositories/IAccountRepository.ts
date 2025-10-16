@@ -1,10 +1,6 @@
 import type { CreateAccountDto, UpdateAccountDto } from '../dtos'
 import type { Account } from '../entities/Account'
 
-/**
- * Interface del repositorio de cuentas
- * Define el contrato para todas las implementaciones
- */
 export interface IAccountRepository {
   findAll: () => Promise<Account[]>
   findById: (id: number) => Promise<Account | null>

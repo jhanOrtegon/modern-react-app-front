@@ -19,7 +19,6 @@ export function PostForm(): ReactElement {
   const { form, onSubmit, isPending, isLoadingPost, isEditing, backLink } =
     usePostFormLogic(postId)
 
-  // Cargar cuentas disponibles
   const { data: accounts, isLoading: isLoadingAccounts } = useAccounts()
 
   if (isLoadingPost && isEditing) {

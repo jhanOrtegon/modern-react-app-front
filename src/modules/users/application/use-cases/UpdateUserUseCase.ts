@@ -12,7 +12,6 @@ export class UpdateUserUseCase {
 
   async execute(user: UpdateUserDto): Promise<User> {
     try {
-      // Validar con UserValidator
       UserValidator.validate(user)
 
       logger.info('Updating user', {

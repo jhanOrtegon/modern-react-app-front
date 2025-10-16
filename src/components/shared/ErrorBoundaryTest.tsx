@@ -5,28 +5,10 @@ import { Bug } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 
-/**
- * Componente de prueba para ErrorBoundary
- *
- * Este componente es solo para testing en desarrollo.
- * Lanza un error cuando se hace clic en el botón para verificar
- * que el ErrorBoundary funciona correctamente.
- *
- * IMPORTANTE: Remover o comentar en producción
- *
- * @example
- * ```tsx
- * // En cualquier página de desarrollo
- * import { ErrorBoundaryTest } from '@/components/shared/ErrorBoundaryTest'
- *
- * <ErrorBoundaryTest />
- * ```
- */
 export function ErrorBoundaryTest(): ReactElement {
   const [shouldThrow, setShouldThrow] = useState(false)
 
   if (shouldThrow) {
-    // Esto lanzará un error que será capturado por ErrorBoundary
     throw new Error(
       '🧪 Error de prueba lanzado intencionalmente desde ErrorBoundaryTest'
     )

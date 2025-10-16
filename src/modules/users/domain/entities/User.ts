@@ -1,11 +1,3 @@
-/**
- * Entidad de dominio User
- *
- * Representa un Usuario en el sistema.
- * Esta entidad solo contiene la estructura de datos,
- * las validaciones están en UserValidator,
- * y los DTOs están en domain/dtos/
- */
 export interface User {
   id: number
   name: string
@@ -13,7 +5,7 @@ export interface User {
   email: string
   phone: string
   website: string
-  accountId: number // ID de la cuenta propietaria
+  accountId: number
   address: {
     street: string
     suite: string

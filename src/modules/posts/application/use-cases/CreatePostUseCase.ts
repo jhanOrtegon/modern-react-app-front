@@ -12,7 +12,6 @@ export class CreatePostUseCase {
 
   async execute(post: CreatePostDto): Promise<Post> {
     try {
-      // Validar con PostValidator en lugar de validaciones manuales
       PostValidator.validate(post)
 
       logger.info('Creating post', {

@@ -12,7 +12,6 @@ export class CreateUserUseCase {
 
   async execute(user: CreateUserDto): Promise<User> {
     try {
-      // Validar con UserValidator en lugar de validaciones manuales
       UserValidator.validate(user)
 
       logger.info('Creating user', {

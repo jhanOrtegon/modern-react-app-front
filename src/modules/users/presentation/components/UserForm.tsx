@@ -19,7 +19,6 @@ export function UserForm(): ReactElement {
   const { form, onSubmit, isPending, isLoadingUser, isEditing, backLink } =
     useUserFormLogic(userId)
 
-  // Cargar cuentas disponibles
   const { data: accounts, isLoading: isLoadingAccounts } = useAccounts()
 
   if (isLoadingUser && isEditing) {

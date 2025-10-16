@@ -4,9 +4,6 @@ import type {
 } from '../../domain/repositories/IAuthRepository'
 import type { LoginFormData } from '../../domain/schemas/authSchema'
 
-/**
- * Caso de uso para iniciar sesión
- */
 export class LoginUseCase {
   constructor(private readonly authRepository: IAuthRepository) {}
 

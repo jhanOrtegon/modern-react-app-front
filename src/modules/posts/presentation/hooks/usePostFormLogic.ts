@@ -27,14 +27,11 @@ export function usePostFormLogic(postId?: number): UsePostFormLogicReturn {
   const navigate = useNavigate()
   const isEditing = Boolean(postId)
 
-  // Fetch existing post if editing
   const { data: existingPost, isLoading: isLoadingPost } = usePost(postId)
 
-  // Mutations
   const createPost = useCreatePost()
   const updatePost = useUpdatePost()
 
-  // Setup form with proper schema based on mode
   const form = useForm<PostFormData | PostUpdateFormData>({
     resolver: zodResolver(isEditing ? postUpdateSchema : postSchema),
     defaultValues: {
@@ -46,7 +43,6 @@ export function usePostFormLogic(postId?: number): UsePostFormLogicReturn {
     },
   })
 
-  // Load existing data when available
   useEffect(() => {
     if (existingPost && isEditing) {
       form.reset({
@@ -59,10 +55,8 @@ export function usePostFormLogic(postId?: number): UsePostFormLogicReturn {
     }
   }, [existingPost, isEditing, form, postId])
 
-  // Handle form submission
   const onSubmit = (data: PostFormData | PostUpdateFormData): void => {
     if (isEditing && postId && 'id' in data) {
-      // El accountId se agrega automáticamente en useUpdatePost
       updatePost.mutate(data as UpdatePostDto, {
         onSuccess: () => {
           navigate(`/posts/${postId}`)
@@ -74,7 +68,6 @@ export function usePostFormLogic(postId?: number): UsePostFormLogicReturn {
         },
       })
     } else {
-      // El accountId se agrega automáticamente en useCreatePost
       createPost.mutate(data as CreatePostDto, {
         onSuccess: newPost => {
           navigate(`/posts/${newPost.id}`)

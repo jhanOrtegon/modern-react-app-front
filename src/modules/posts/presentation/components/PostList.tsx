@@ -30,7 +30,6 @@ export function PostList(): ReactElement {
   const [showConfirmPopover, setShowConfirmPopover] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
 
-  // Calcular items paginados
   const { paginatedPosts, totalPages } = useMemo(() => {
     if (!posts) {
       return { paginatedPosts: [], totalPages: 0 }
@@ -73,7 +72,6 @@ export function PostList(): ReactElement {
     )
   }
 
-  // Verificar si no hay datos
   if (!posts || posts.length === 0) {
     return (
       <PageTransition>
@@ -179,7 +177,7 @@ export function PostList(): ReactElement {
           ))}
         </StaggerContainer>
 
-        {/* Paginación */}
+        {}
         {posts.length > 0 ? (
           <Pagination
             currentPage={currentPage}

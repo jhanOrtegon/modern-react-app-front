@@ -1,8 +1,5 @@
 import type { IAccountRepository } from '../../domain/repositories/IAccountRepository'
 
-/**
- * Use Case para eliminar una cuenta
- */
 export class DeleteAccountUseCase {
   constructor(private readonly accountRepository: IAccountRepository) {}
 

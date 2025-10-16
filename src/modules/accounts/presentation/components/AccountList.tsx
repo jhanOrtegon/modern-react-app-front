@@ -26,7 +26,6 @@ export function AccountList(): ReactElement {
   const [showConfirmPopover, setShowConfirmPopover] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
 
-  // Calcular items paginados
   const { paginatedAccounts, totalPages } = useMemo(() => {
     if (!accounts) {
       return { paginatedAccounts: [], totalPages: 0 }
@@ -170,7 +169,7 @@ export function AccountList(): ReactElement {
         ))}
       </StaggerContainer>
 
-      {/* Paginación */}
+      {}
       {accounts.length > 0 ? (
         <Pagination
           currentPage={currentPage}

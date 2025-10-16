@@ -27,7 +27,7 @@ export function FormLayout({
   return (
     <SlideIn direction="up">
       <div className="space-y-6">
-        {/* Header */}
+        {}
         <motion.div
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center justify-between"
@@ -43,7 +43,7 @@ export function FormLayout({
           <h1 className="text-2xl font-bold">{title}</h1>
         </motion.div>
 
-        {/* Form */}
+        {}
         <motion.form
           animate={{ opacity: 1, y: 0 }}
           className="space-y-6 rounded-lg border bg-card p-8"
@@ -53,7 +53,7 @@ export function FormLayout({
         >
           {children}
 
-          {/* Form Actions */}
+          {}
           <motion.div
             animate={{ opacity: 1 }}
             className="flex justify-end gap-2 border-t pt-6"

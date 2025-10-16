@@ -1,8 +1,3 @@
-/**
- * Tipos que representan la estructura de datos del API externo (JSONPlaceholder)
- * Estos tipos definen el contrato con el backend
- */
-
 export interface UserAPIAddress {
   street?: string
   suite?: string

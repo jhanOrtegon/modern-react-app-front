@@ -29,10 +29,10 @@ export const userSchema = z.object({
     .string({
       message: 'El email es requerido',
     })
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    .email('Por favor ingresa un email válido')
-    .trim()
-    .toLowerCase(),
+    .refine(val => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val), {
+      message: 'Por favor ingresa un email válido',
+    })
+    .transform(val => val.trim().toLowerCase()),
   phone: z
     .string({
       message: 'El teléfono es requerido',

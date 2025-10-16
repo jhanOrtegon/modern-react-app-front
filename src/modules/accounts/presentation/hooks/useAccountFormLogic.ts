@@ -31,15 +31,12 @@ export function useAccountFormLogic(
   const navigate = useNavigate()
   const isEditing = Boolean(accountId)
 
-  // Fetch existing account if editing
   const { data: existingAccount, isLoading: isLoadingAccount } =
     useAccount(accountId)
 
-  // Mutations
   const createAccount = useCreateAccount()
   const updateAccount = useUpdateAccount()
 
-  // Setup form with proper schema based on mode
   const form = useForm<AccountFormData | AccountUpdateFormData>({
     resolver: zodResolver(isEditing ? accountUpdateSchema : accountSchema),
     defaultValues: {
@@ -49,7 +46,6 @@ export function useAccountFormLogic(
     },
   })
 
-  // Load existing data when available
   useEffect(() => {
     if (existingAccount && isEditing) {
       form.reset({
@@ -60,7 +56,6 @@ export function useAccountFormLogic(
     }
   }, [existingAccount, isEditing, form, accountId])
 
-  // Handle form submission
   const onSubmit = (data: AccountFormData | AccountUpdateFormData): void => {
     if (isEditing && accountId && 'id' in data) {
       updateAccount.mutate(data, {

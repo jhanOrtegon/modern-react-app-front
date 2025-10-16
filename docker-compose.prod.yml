@@ -1,0 +1,16 @@
+services:
+  modern-react-app-prod:
+    container_name: modern-react-app-prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - '80:80'
+    restart: unless-stopped
+    networks:
+      - modern-react-network
+
+networks:
+  modern-react-network:
+    driver: bridge

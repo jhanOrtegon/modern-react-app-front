@@ -48,7 +48,6 @@ export class LocalStorageAccountRepository implements IAccountRepository {
   create = async (accountDto: CreateAccountDto): Promise<Account> => {
     const accounts = this.getAccounts()
 
-    // Verificar si el email ya existe
     const emailExists = accounts.some(a => a.email === accountDto.email)
     if (emailExists) {
       throw new Error('El email ya está registrado')
@@ -78,7 +77,6 @@ export class LocalStorageAccountRepository implements IAccountRepository {
       throw new Error(`Account with id ${String(accountDto.id)} not found`)
     }
 
-    // Verificar si el email ya existe en otra cuenta
     const emailExists = accounts.some(
       a => a.email === accountDto.email && a.id !== accountDto.id
     )

@@ -1,6 +1,3 @@
-/**
- * Barrel export para Result Pattern
- */
 export type { Result } from './Result'
 export {
   ok,

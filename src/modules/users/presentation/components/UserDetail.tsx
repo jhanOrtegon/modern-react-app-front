@@ -38,9 +38,7 @@ export function UserDetail(): ReactElement {
       },
       cancel: {
         label: 'Cancel',
-        onClick: () => {
-          // Cancel action
-        },
+        onClick: () => undefined,
       },
     })
   }

@@ -1,8 +1,5 @@
 import type { IPostRepository } from '../../domain/repositories/IPostRepository'
 
-/**
- * Use Case para limpiar todos los posts del almacenamiento de una cuenta específica
- */
 export class ClearAllPostsUseCase {
   constructor(private readonly postRepository: IPostRepository) {}
 

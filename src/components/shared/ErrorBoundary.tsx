@@ -4,6 +4,8 @@ import { AlertCircle, Home, RefreshCw } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 
+import { logger } from '@/lib/logger'
+
 interface Props {
   children: ReactNode
   fallback?: ReactNode
@@ -16,22 +18,6 @@ interface State {
   errorInfo: ErrorInfo | null
 }
 
-/**
- * Error Boundary para capturar errores de React y mostrar UI de fallback
- *
- * Características:
- * - Captura errores de renderizado
- * - Muestra UI amigable al usuario
- * - Permite recuperación con reload
- * - Envía errores a callback opcional (para logging)
- *
- * @example
- * ```tsx
- * <ErrorBoundary>
- *   <App />
- * </ErrorBoundary>
- * ```
- */
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
@@ -50,16 +36,14 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    // Log del error (solo en desarrollo)
-    // eslint-disable-next-line no-console
-    console.error('Error capturado por ErrorBoundary:', error, errorInfo)
+    logger.error('Error capturado por ErrorBoundary:', error, {
+      componentStack: errorInfo.componentStack,
+    })
 
-    // Actualizar estado con info del error
     this.setState({
       errorInfo,
     })
 
-    // Callback personalizado (para enviar a servicio de logging)
     if (this.props.onError) {
       this.props.onError(error, errorInfo)
     }
@@ -83,23 +67,21 @@ export class ErrorBoundary extends Component<Props, State> {
 
   override render(): ReactNode {
     if (this.state.hasError) {
-      // Si hay fallback personalizado, usarlo
       if (this.props.fallback) {
         return this.props.fallback
       }
 
-      // UI de error por defecto
       return (
         <div className="flex min-h-screen items-center justify-center bg-background p-4">
           <div className="w-full max-w-md space-y-6 text-center">
-            {/* Icono de error */}
+            {}
             <div className="flex justify-center">
               <div className="rounded-full bg-destructive/10 p-4">
                 <AlertCircle className="size-12 text-destructive" />
               </div>
             </div>
 
-            {/* Mensaje principal */}
+            {}
             <div className="space-y-2">
               <h1 className="text-2xl font-bold tracking-tight">
                 ¡Oops! Algo salió mal
@@ -110,7 +92,7 @@ export class ErrorBoundary extends Component<Props, State> {
               </p>
             </div>
 
-            {/* Detalles del error (solo en desarrollo) */}
+            {}
             {this.state.error ? (
               <details className="rounded-lg border border-destructive/20 bg-destructive/5 p-4 text-left">
                 <summary className="cursor-pointer font-medium text-destructive">
@@ -129,7 +111,7 @@ export class ErrorBoundary extends Component<Props, State> {
               </details>
             ) : null}
 
-            {/* Acciones */}
+            {}
             <div className="flex flex-col gap-2 sm:flex-row sm:justify-center">
               <Button className="gap-2" onClick={this.handleReload}>
                 <RefreshCw className="size-4" />
@@ -145,7 +127,7 @@ export class ErrorBoundary extends Component<Props, State> {
               </Button>
             </div>
 
-            {/* Información adicional */}
+            {}
             <p className="text-xs text-muted-foreground">
               Si el problema persiste, por favor contacta al soporte técnico.
             </p>

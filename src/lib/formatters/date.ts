@@ -1,13 +1,3 @@
-/**
- * Utilidades para formatear fechas
- */
-
-/**
- * Formatea una fecha en formato corto (dd/MM/yyyy)
- * @param date - Fecha a formatear
- * @returns Fecha formateada
- * @example formatDate(new Date()) // "15/10/2025"
- */
 export function formatDate(date: Date | string | number): string {
   const dateObj = new Date(date)
 
@@ -22,12 +12,6 @@ export function formatDate(date: Date | string | number): string {
   }).format(dateObj)
 }
 
-/**
- * Formatea una fecha con hora (dd/MM/yyyy HH:mm)
- * @param date - Fecha a formatear
- * @returns Fecha y hora formateadas
- * @example formatDateTime(new Date()) // "15/10/2025 14:30"
- */
 export function formatDateTime(date: Date | string | number): string {
   const dateObj = new Date(date)
 
@@ -44,12 +28,6 @@ export function formatDateTime(date: Date | string | number): string {
   }).format(dateObj)
 }
 
-/**
- * Formatea una fecha de forma relativa (hace 5 minutos, hace 2 días, etc.)
- * @param date - Fecha a formatear
- * @returns Fecha relativa
- * @example formatRelativeTime(new Date(Date.now() - 60000)) // "hace 1 minuto"
- */
 export function formatRelativeTime(date: Date | string | number): string {
   const dateObj = new Date(date)
 
@@ -85,12 +63,6 @@ export function formatRelativeTime(date: Date | string | number): string {
   return rtf.format(Math.round(diff / year), 'years')
 }
 
-/**
- * Formatea una fecha en formato largo (15 de octubre de 2025)
- * @param date - Fecha a formatear
- * @returns Fecha en formato largo
- * @example formatLongDate(new Date()) // "15 de octubre de 2025"
- */
 export function formatLongDate(date: Date | string | number): string {
   const dateObj = new Date(date)
 
@@ -105,13 +77,6 @@ export function formatLongDate(date: Date | string | number): string {
   }).format(dateObj)
 }
 
-/**
- * Obtiene la diferencia en días entre dos fechas
- * @param date1 - Primera fecha
- * @param date2 - Segunda fecha
- * @returns Diferencia en días
- * @example getDaysDifference(new Date(), new Date(Date.now() + 86400000)) // 1
- */
 export function getDaysDifference(
   date1: Date | string | number,
   date2: Date | string | number

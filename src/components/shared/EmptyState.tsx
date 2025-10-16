@@ -6,48 +6,17 @@ import { Link } from 'react-router-dom'
 import { Button } from '../ui/button'
 
 interface EmptyStateProps {
-  /**
-   * Título del mensaje vacío
-   */
   title: string
 
-  /**
-   * Descripción del mensaje vacío
-   */
   description?: string
 
-  /**
-   * Ícono personalizado (opcional)
-   */
   icon?: ReactNode
 
-  /**
-   * Ruta para el botón de acción
-   */
   actionLink?: string
 
-  /**
-   * Texto del botón de acción
-   */
   actionLabel?: string
 }
 
-/**
- * Componente EmptyState
- *
- * Muestra un estado vacío con ícono, mensaje y opcionalmente un botón de acción.
- * Se usa cuando no hay datos que mostrar en listas o tablas.
- *
- * @example
- * ```tsx
- * <EmptyState
- *   title="No posts found"
- *   description="Create your first post to get started"
- *   actionLink="/posts/new"
- *   actionLabel="Create Post"
- * />
- * ```
- */
 export function EmptyState({
   title,
   description,

@@ -37,7 +37,7 @@ export class LocalStoragePostRepository implements IPostRepository {
 
   findAll = async (_accountId?: number): Promise<Post[]> => {
     const allPosts = this.getPosts()
-    // LocalStorage ya tiene accountId en cada post, no necesitamos el parámetro
+
     return await Promise.resolve(allPosts)
   }
 
@@ -99,7 +99,7 @@ export class LocalStoragePostRepository implements IPostRepository {
   clearAll = async (accountId: number): Promise<void> => {
     try {
       const posts = this.getPosts()
-      // Filtrar y mantener solo los posts que NO pertenecen a la cuenta especificada
+
       const filteredPosts = posts.filter(p => p.accountId !== accountId)
       this.savePosts(filteredPosts)
       await Promise.resolve()

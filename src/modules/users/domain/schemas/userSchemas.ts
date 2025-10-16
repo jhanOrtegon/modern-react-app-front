@@ -1,9 +1,5 @@
 import { z } from 'zod'
 
-/**
- * Schema de validación para crear un User
- * Auto-genera el tipo CreateUserDto con z.infer<>
- */
 export const createUserSchema = z.object({
   accountId: z
     .number({ message: 'Account ID must be a number' })
@@ -46,10 +42,6 @@ export const createUserSchema = z.object({
     .transform(val => val ?? ''),
 })
 
-/**
- * Schema de validación para actualizar un User
- * Extiende createUserSchema y agrega id
- */
 export const updateUserSchema = createUserSchema.extend({
   id: z
     .number({ message: 'ID must be a number' })
@@ -57,13 +49,6 @@ export const updateUserSchema = createUserSchema.extend({
     .positive('ID must be positive'),
 })
 
-/**
- * Tipo CreateUserDto auto-generado desde schema
- * Esto garantiza que el DTO y la validación siempre están sincronizados
- */
 export type CreateUserDto = z.infer<typeof createUserSchema>
 
-/**
- * Tipo UpdateUserDto auto-generado desde schema
- */
 export type UpdateUserDto = z.infer<typeof updateUserSchema>

@@ -1,8 +1,5 @@
 import { z } from 'zod'
 
-/**
- * Schema de validación para registro de cuenta
- */
 export const registerSchema = z
   .object({
     name: z
@@ -16,10 +13,10 @@ export const registerSchema = z
       .string({
         message: 'El email es requerido',
       })
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      .email('Por favor ingresa un email válido')
-      .trim()
-      .toLowerCase(),
+      .refine(val => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val), {
+        message: 'Por favor ingresa un email válido',
+      })
+      .transform(val => val.trim().toLowerCase()),
     password: z
       .string({
         message: 'La contraseña es requerida',
@@ -35,18 +32,15 @@ export const registerSchema = z
     path: ['confirmPassword'],
   })
 
-/**
- * Schema de validación para login
- */
 export const loginSchema = z.object({
   email: z
     .string({
       message: 'El email es requerido',
     })
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    .email('Por favor ingresa un email válido')
-    .trim()
-    .toLowerCase(),
+    .refine(val => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val), {
+      message: 'Por favor ingresa un email válido',
+    })
+    .transform(val => val.trim().toLowerCase()),
   password: z
     .string({
       message: 'La contraseña es requerida',

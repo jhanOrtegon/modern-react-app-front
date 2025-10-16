@@ -19,7 +19,6 @@ export function Pagination({
   itemsPerPage,
   totalItems,
 }: PaginationProps): ReactElement | null {
-  // Siempre mostrar la paginación para mantener el espacio consistente
   const startItem = totalItems > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0
   const endItem = Math.min(currentPage * itemsPerPage, totalItems)
 
@@ -28,7 +27,6 @@ export function Pagination({
     const maxVisible = 5
 
     if (totalPages <= maxVisible) {
-      // Mostrar todas las páginas si son pocas
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i)
       }
@@ -62,16 +60,16 @@ export function Pagination({
 
   return (
     <div className="flex items-center justify-between border-t pt-4">
-      {/* Info de items */}
+      {}
       <div className="text-sm text-muted-foreground">
         Mostrando <span className="font-medium">{startItem}</span> a{' '}
         <span className="font-medium">{endItem}</span> de{' '}
         <span className="font-medium">{totalItems}</span> resultados
       </div>
 
-      {/* Controles de paginación */}
+      {}
       <div className="flex items-center gap-2">
-        {/* Botón anterior */}
+        {}
         <Button
           disabled={currentPage === 1 || totalPages <= 1}
           size="sm"
@@ -84,7 +82,7 @@ export function Pagination({
           Anterior
         </Button>
 
-        {/* Números de página - Solo mostrar si hay más de una página */}
+        {}
         {totalPages > 1 ? (
           <div className="hidden items-center gap-1 sm:flex">
             {pageNumbers.map(page => {
@@ -117,14 +115,14 @@ export function Pagination({
           </div>
         )}
 
-        {/* Indicador móvil */}
+        {}
         <div className="flex items-center sm:hidden">
           <span className="text-sm text-muted-foreground">
             Página {currentPage} de {totalPages}
           </span>
         </div>
 
-        {/* Botón siguiente */}
+        {}
         <Button
           disabled={currentPage === totalPages || totalPages <= 1}
           size="sm"

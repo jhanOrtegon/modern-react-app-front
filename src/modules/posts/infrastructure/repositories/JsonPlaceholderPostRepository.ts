@@ -19,7 +19,7 @@ export class JsonPlaceholderPostRepository implements IPostRepository {
         throw new NetworkError(`HTTP error! status: ${response.status}`)
       }
       const data = (await response.json()) as PostAPIResponse[]
-      // Pasar accountId al adapter para que los posts tengan el accountId correcto
+
       return PostAdapter.toDomainList(data, accountId ?? 1)
     } catch (error) {
       if (error instanceof NetworkError) {

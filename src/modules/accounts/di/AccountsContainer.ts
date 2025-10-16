@@ -8,15 +8,8 @@ import { LocalStorageAccountRepository } from '../infrastructure/repositories/Lo
 
 import type { IAccountRepository } from '../domain/repositories/IAccountRepository'
 
-/**
- * Tipos de repositorio disponibles para Accounts
- */
 export type AccountRepositoryType = 'localStorage'
 
-/**
- * Dependency Injection Container para el módulo de Accounts
- * Implementa el patrón Singleton con inicialización perezosa
- */
 class AccountsContainer {
   private accountRepository?: IAccountRepository
   private getAccountsUseCase?: GetAccountsUseCase
@@ -27,39 +20,27 @@ class AccountsContainer {
   private clearAllAccountsUseCase?: ClearAllAccountsUseCase
   private repositoryType: AccountRepositoryType = 'localStorage'
 
-  /**
-   * Cambia el tipo de repositorio y resetea todas las instancias
-   * @param type - El tipo de repositorio a usar
-   */
   setRepositoryType(type: AccountRepositoryType): void {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (this.repositoryType !== type) {
-      this.repositoryType = type
-      // Resetear todas las instancias para que usen el nuevo repositorio
-      this.accountRepository = undefined
-      this.getAccountsUseCase = undefined
-      this.getAccountUseCase = undefined
-      this.createAccountUseCase = undefined
-      this.updateAccountUseCase = undefined
-      this.deleteAccountUseCase = undefined
-      this.clearAllAccountsUseCase = undefined
-    }
+    this.repositoryType = type
+
+    this.accountRepository = undefined
+    this.getAccountsUseCase = undefined
+    this.getAccountUseCase = undefined
+    this.createAccountUseCase = undefined
+    this.updateAccountUseCase = undefined
+    this.deleteAccountUseCase = undefined
+    this.clearAllAccountsUseCase = undefined
   }
 
-  /**
-   * Obtiene el tipo de repositorio actual
-   */
   getRepositoryType(): AccountRepositoryType {
     return this.repositoryType
   }
 
-  // Repository
   getAccountRepository(): IAccountRepository {
     this.accountRepository ??= new LocalStorageAccountRepository()
     return this.accountRepository
   }
 
-  // Use Cases
   getGetAccountsUseCase(): GetAccountsUseCase {
     this.getAccountsUseCase ??= new GetAccountsUseCase(
       this.getAccountRepository()
@@ -103,5 +84,4 @@ class AccountsContainer {
   }
 }
 
-// Singleton instance
 export const accountsContainer = new AccountsContainer()

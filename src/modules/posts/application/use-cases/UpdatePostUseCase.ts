@@ -12,7 +12,6 @@ export class UpdatePostUseCase {
 
   async execute(post: UpdatePostDto): Promise<Post> {
     try {
-      // Validar con PostValidator
       PostValidator.validate(post)
 
       logger.info('Updating post', {

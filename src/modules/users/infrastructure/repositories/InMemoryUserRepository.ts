@@ -109,21 +109,18 @@ export class InMemoryUserRepository implements IUserRepository {
   private nextId = 6
 
   findAll = async (_accountId?: number): Promise<User[]> => {
-    // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 300))
-    // InMemory ya tiene accountId en cada user, no necesitamos el parámetro
+
     return [...this.users]
   }
 
   findById = async (id: number): Promise<User | null> => {
-    // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 200))
     const user = this.users.find(u => u.id === id)
     return user ?? null
   }
 
   create = async (userDto: CreateUserDto): Promise<User> => {
-    // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 400))
 
     const newUser: User = {
@@ -148,7 +145,6 @@ export class InMemoryUserRepository implements IUserRepository {
   }
 
   update = async (userDto: UpdateUserDto): Promise<User> => {
-    // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 400))
 
     const index = this.users.findIndex(u => u.id === userDto.id)
@@ -179,7 +175,6 @@ export class InMemoryUserRepository implements IUserRepository {
   }
 
   delete = async (id: number): Promise<void> => {
-    // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 300))
 
     const initialLength = this.users.length

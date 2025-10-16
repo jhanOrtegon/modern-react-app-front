@@ -10,7 +10,6 @@ import { LocalStorageUserRepository } from '../infrastructure/repositories/Local
 
 import type { IUserRepository } from '../domain/repositories/IUserRepository'
 
-// Tipos de repositorio disponibles
 export type UserRepositoryType = 'jsonplaceholder' | 'localStorage' | 'inMemory'
 
 class UsersContainer {
@@ -21,16 +20,12 @@ class UsersContainer {
   private updateUserUseCase: UpdateUserUseCase | null = null
   private deleteUserUseCase: DeleteUserUseCase | null = null
   private clearAllUsersUseCase: ClearAllUsersUseCase | null = null
-  private repositoryType: UserRepositoryType = 'jsonplaceholder' // Por defecto JSONPlaceholder
+  private repositoryType: UserRepositoryType = 'jsonplaceholder'
 
-  /**
-   * Cambia el tipo de repositorio y resetea todas las instancias
-   * @param type - El tipo de repositorio a usar
-   */
   setRepositoryType(type: UserRepositoryType): void {
     if (this.repositoryType !== type) {
       this.repositoryType = type
-      // Resetear todas las instancias para que usen el nuevo repositorio
+
       this.userRepository = null
       this.getUsersUseCase = null
       this.getUserUseCase = null
@@ -41,9 +36,6 @@ class UsersContainer {
     }
   }
 
-  /**
-   * Obtiene el tipo de repositorio actual
-   */
   getRepositoryType(): UserRepositoryType {
     return this.repositoryType
   }

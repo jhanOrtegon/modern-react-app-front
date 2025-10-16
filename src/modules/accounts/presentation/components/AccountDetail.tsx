@@ -18,7 +18,7 @@ export function AccountDetail(): ReactElement {
   const deleteAccount = useDeleteAccount()
 
   const handleDelete = (): void => {
-    // eslint-disable-next-line no-alert
+    /* eslint-disable-next-line no-alert */
     if (window.confirm('¿Estás seguro de que quieres eliminar esta cuenta?')) {
       if (accountId) {
         deleteAccount.mutate(accountId, {
@@ -51,7 +51,7 @@ export function AccountDetail(): ReactElement {
   return (
     <FadeIn>
       <div className="mx-auto max-w-3xl space-y-6">
-        {/* Header */}
+        {}
         <div className="flex items-center justify-between">
           <Button asChild size="sm" variant="ghost">
             <Link to="/accounts">
@@ -78,7 +78,7 @@ export function AccountDetail(): ReactElement {
           </div>
         </div>
 
-        {/* Account Card */}
+        {}
         <div className="overflow-hidden rounded-lg border bg-card">
           <div className="border-b bg-muted/50 p-6">
             <div className="flex items-center gap-4">
@@ -95,7 +95,7 @@ export function AccountDetail(): ReactElement {
           </div>
 
           <div className="space-y-6 p-6">
-            {/* Email */}
+            {}
             <div>
               <div className="mb-2 flex items-center text-sm font-medium text-muted-foreground">
                 <Mail className="mr-2 size-4" />
@@ -104,7 +104,7 @@ export function AccountDetail(): ReactElement {
               <p className="text-lg">{account.email}</p>
             </div>
 
-            {/* Created At */}
+            {}
             {account.createdAt ? (
               <div>
                 <div className="mb-2 block text-sm font-medium text-muted-foreground">

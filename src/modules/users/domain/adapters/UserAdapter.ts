@@ -6,23 +6,7 @@ import type {
 import type { CreateUserDto, UpdateUserDto } from '../dtos'
 import type { User } from '../entities/User'
 
-/**
- * Adaptador defensivo para transformar datos del API a entidades del dominio
- *
- * Este adaptador protege contra:
- * - Llaves faltantes o renombradas en el backend
- * - Tipos incorrectos
- * - Valores null o undefined
- * - Cambios en la estructura del API
- *
- * Ubicado en domain/ porque la transformación de datos es lógica de dominio,
- * no de infraestructura. El dominio define cómo deben verse los datos.
- */
 export const UserAdapter = {
-  /**
-   * Convierte una respuesta del API a una entidad User del dominio
-   * Aplica valores por defecto para evitar errores
-   */
   toDomain(apiResponse: UserAPIResponse, accountId = 1): User {
     return {
       id: apiResponse.id ?? 0,
@@ -31,7 +15,7 @@ export const UserAdapter = {
       email: apiResponse.email ?? 'no-email@example.com',
       phone: apiResponse.phone ?? 'N/A',
       website: apiResponse.website ?? 'N/A',
-      accountId, // Asociar al account
+      accountId,
       address: {
         street: apiResponse.address?.street ?? 'N/A',
         suite: apiResponse.address?.suite ?? 'N/A',
@@ -46,9 +30,6 @@ export const UserAdapter = {
     }
   },
 
-  /**
-   * Convierte un array de respuestas del API a entidades del dominio
-   */
   toDomainList(apiResponses: UserAPIResponse[], accountId = 1): User[] {
     if (!Array.isArray(apiResponses)) {
       return []
@@ -57,9 +38,6 @@ export const UserAdapter = {
     return apiResponses.map(item => this.toDomain(item, accountId))
   },
 
-  /**
-   * Convierte un CreateUserDto a formato esperado por el API
-   */
   toAPICreate(dto: CreateUserDto): UserAPICreateRequest {
     return {
       name: dto.name,
@@ -70,9 +48,6 @@ export const UserAdapter = {
     }
   },
 
-  /**
-   * Convierte un UpdateUserDto a formato esperado por el API
-   */
   toAPIUpdate(dto: UpdateUserDto): UserAPIUpdateRequest {
     return {
       id: dto.id,
