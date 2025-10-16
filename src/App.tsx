@@ -22,12 +22,9 @@ function App(): ReactElement {
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
       <Toaster richColors position="top-right" />
-      {}
       {config.features.enableDevTools ? (
         <ReactQueryDevtools initialIsOpen={false} />
       ) : null}
-      {}
-      {}
     </QueryClientProvider>
   )
 }

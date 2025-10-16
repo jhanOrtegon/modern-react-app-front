@@ -20,9 +20,10 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 
+import { config } from '../../../../config'
 import { useClearAllPosts, usePosts } from '../hooks/usePostOperations'
 
-const ITEMS_PER_PAGE = 9
+const ITEMS_PER_PAGE = config.ui.itemsPerPage
 
 export function PostList(): ReactElement {
   const { data: posts, isLoading, error } = usePosts()
